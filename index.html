@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#151b1c" />
+    <meta name="description" content="沿北京中轴线探索古都秩序的 PC 端交互网页演示。" />
+    <title>一线定城 · 北京中轴线</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./main.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="返回首页"><span class="brand-mark">中</span><span>一线定城<small>BEIJING CENTRAL AXIS</small></span></a>
+      <nav aria-label="主导航"><a href="#story">开始探索</a><a href="#quiz">互动问答</a><a href="#sources">资料来源</a></nav>
+      <span class="header-note">古都美学 · 交互演示</span>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-rings" aria-hidden="true"></div>
+        <div class="hero-content">
+          <p class="eyebrow"><span></span> 穿行七百余年的城市脊梁</p>
+          <h1 id="hero-title">一线<span>定</span>城</h1>
+          <p class="hero-subtitle">北京中轴线 · 中国理想都城秩序的杰作</p>
+          <p class="hero-description">从南端的永定门出发，沿着城市的中心向北。滚动、观察、点击，在空间里读懂北京的古都美学。</p>
+          <a class="primary-button" href="#story">进入中轴线 <span aria-hidden="true">↘</span></a>
+        </div>
+        <div class="hero-axis" aria-hidden="true"><span class="hero-axis-line"></span><span class="hero-axis-end">北</span><span class="hero-axis-start">南</span></div>
+        <div class="hero-bottom"><span>SCROLL TO EXPLORE</span><span>01 / 04</span></div>
+      </section>
+
+      <div class="story" id="story">
+        <div class="story-stage" id="story-stage" data-theme="gate">
+          <div class="sky-grain" aria-hidden="true"></div>
+          <div class="sun-disc" aria-hidden="true"></div>
+          <div class="horizon horizon-back" aria-hidden="true"></div>
+          <div class="horizon horizon-front" aria-hidden="true"></div>
+          <div class="axis-world" aria-hidden="true"><div class="axis-road"><div class="road-center"></div><div class="road-ticks"></div></div></div>
+          <div class="landmark-wrap" aria-hidden="true"><div class="landmark-glow"></div><div id="landmark-art" class="landmark-art"></div></div>
+          <div class="floating-label" aria-hidden="true">BEIJING · CENTRAL AXIS</div>
+
+          <div class="stage-top"><span class="stage-kicker">由南向北 · 一线串城</span><span id="chapter-count">01 / 04</span></div>
+          <div class="stage-copy" aria-live="polite"><p id="scene-number" class="scene-number">第一站 · 南端</p><h2 id="scene-title">永定门</h2><p id="scene-summary"></p><p class="stage-hint">点击画面中的光点，了解建筑与城市的关系</p></div>
+          <div class="hotspot-layer" id="hotspots" aria-label="本场景可探索的点位"></div>
+          <div class="stage-bottom"><div class="progress"><span id="progress-bar"></span></div><span id="scene-position">永定门</span><button id="next-scene" class="text-button" type="button">继续向北 <span aria-hidden="true">↓</span></button></div>
+        </div>
+        <div class="story-steps" aria-hidden="true"><div class="story-step"></div><div class="story-step"></div><div class="story-step"></div><div class="story-step"></div></div>
+      </div>
+
+      <section class="quiz-section" id="quiz" aria-labelledby="quiz-title">
+        <div class="quiz-decoration" aria-hidden="true">中</div>
+        <div class="quiz-inner"><p class="eyebrow"><span></span> 走过中轴 · 留下一点发现</p><h2 id="quiz-title">你看见了怎样的<span>秩序</span>？</h2><p class="quiz-intro">选择一个答案，看看中轴线如何组织城市空间。</p>
+          <div class="quiz-card"><p class="quiz-index">01 / 互动问答</p><h3>站在故宫面朝北方，太庙和社稷坛分别位于哪一侧？</h3><div class="quiz-options" role="group" aria-label="请选择答案"><button type="button" data-answer="correct">太庙在东侧，社稷坛在西侧</button><button type="button" data-answer="wrong">太庙在西侧，社稷坛在东侧</button><button type="button" data-answer="wrong">两处都在中轴线上</button></div><p id="quiz-result" class="quiz-result" role="status" aria-live="polite"></p></div>
+        </div>
+      </section>
+
+      <section class="sources-section" id="sources"><div><p class="eyebrow">关于这次演示</p><h2>史料为根，视觉为桥。</h2></div><div class="source-copy"><p>当前建筑为代码绘制的示意图，用来验证滚动、图层和点击流程；它们并非古建测绘模型。美工素材到位后，可按场景配置替换。</p><p>北京中轴线的范围、构成与布局介绍参考以下资料。后续新增文案和图片时，请同步补充出处与授权信息。</p><ul><li><a href="https://whc.unesco.org/zh/list/1714" target="_blank" rel="noopener noreferrer">联合国教科文组织 · 北京中轴线世界遗产条目 ↗</a></li><li><a href="https://www.beijing.gov.cn/zhengce/dfxfg/202506/t20250610_4110461.html" target="_blank" rel="noopener noreferrer">北京市人民政府 · 北京中轴线世界文化遗产保护条例 ↗</a></li></ul></div></section>
+    </main>
+
+    <footer class="site-footer"><span>一线定城 · 北京中轴线</span><span>PC 端交互原型 / 2026</span><a href="#top">回到顶部 ↑</a></footer>
+
+    <dialog id="info-dialog" class="info-dialog" aria-labelledby="dialog-title"><button id="close-dialog" class="dialog-close" type="button" aria-label="关闭介绍">×</button><p id="dialog-eyebrow" class="dialog-eyebrow"></p><h2 id="dialog-title"></h2><p id="dialog-body"></p><a id="dialog-source" href="#" target="_blank" rel="noopener noreferrer">查看资料来源 ↗</a></dialog>
+  </body>
+</html>
