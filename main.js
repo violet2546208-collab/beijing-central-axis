@@ -37,6 +37,7 @@ const steps = [...document.querySelectorAll('.story-step')];
 const dialog = $('#info-dialog');
 let activeScene = -1;
 let ticking = false;
+let lastStoryProgress = 0;
 
 // 代码绘制的示意建筑；替换素材时保留外层 landmark-wrap 即可沿用视差效果。
 function landmarkSvg(type) {
@@ -58,6 +59,7 @@ function landmarkSvg(type) {
 function showScene(index) {
   if (index === activeScene) return;
   activeScene = index;
+  if (dialog.open) dialog.close();
   const scene = scenes[index];
   stage.dataset.theme = scene.theme;
   $('#chapter-count').textContent = `${String(index + 1).padStart(2, '0')} / 04`;
@@ -65,7 +67,20 @@ function showScene(index) {
   $('#scene-title').textContent = scene.title;
   $('#scene-summary').textContent = scene.summary;
   $('#scene-position').textContent = scene.position;
-  $('#landmark-art').innerHTML = landmarkSvg(scene.art);
+  const art = $('#landmark-art');
+  art.querySelectorAll('.art-frame').forEach((frame) => {
+    frame.classList.remove('art-enter');
+    frame.classList.add('art-exit');
+    window.setTimeout(() => frame.remove(), 650);
+  });
+  const frame = document.createElement('div');
+  frame.className = 'art-frame art-enter';
+  frame.innerHTML = landmarkSvg(scene.art);
+  art.append(frame);
+  const copy = $('.stage-copy');
+  copy.classList.remove('copy-enter');
+  void copy.offsetWidth;
+  copy.classList.add('copy-enter');
   const layer = $('#hotspots');
   layer.replaceChildren();
   for (const spot of scene.hotspots) {
@@ -77,17 +92,25 @@ function showScene(index) {
     button.innerHTML = '<span class="hotspot-pulse" aria-hidden="true"></span><span class="hotspot-dot" aria-hidden="true"></span><span class="hotspot-label"></span>';
     button.querySelector('.hotspot-label').textContent = spot.label;
     button.setAttribute('aria-label', `了解${spot.title}`);
-    button.addEventListener('click', () => openInfo(spot));
+    button.addEventListener('click', () => openInfo(spot, button));
     layer.append(button);
   }
 }
 
-function openInfo(spot) {
+function openInfo(spot, button) {
   $('#dialog-eyebrow').textContent = spot.eyebrow;
   $('#dialog-title').textContent = spot.title;
   $('#dialog-body').textContent = spot.body;
   $('#dialog-source').href = spot.source;
-  dialog.showModal();
+  if (!dialog.open) dialog.show();
+  const anchor = button.getBoundingClientRect();
+  const gap = 18;
+  const panelWidth = dialog.offsetWidth;
+  const panelHeight = dialog.offsetHeight;
+  const rightSide = anchor.right + gap + panelWidth <= window.innerWidth - 20;
+  const left = rightSide ? anchor.right + gap : anchor.left - gap - panelWidth;
+  dialog.style.left = `${Math.max(20, Math.min(left, window.innerWidth - panelWidth - 20))}px`;
+  dialog.style.top = `${Math.max(20, Math.min(anchor.top - 32, window.innerHeight - panelHeight - 20))}px`;
 }
 
 function updateScroll() {
@@ -96,11 +119,12 @@ function updateScroll() {
   const scrollable = Math.max(1, story.offsetHeight - window.innerHeight);
   const progress = Math.max(0, Math.min(0.9999, -rect.top / scrollable));
   const index = Math.min(scenes.length - 1, Math.floor(progress * scenes.length));
-  const local = (progress * scenes.length) % 1;
+  if (dialog.open && Math.abs(progress - lastStoryProgress) > 0.002) dialog.close();
+  lastStoryProgress = progress;
   showScene(index);
-  stage.style.setProperty('--travel', `${(local * 90).toFixed(2)}px`);
-  stage.style.setProperty('--rise', `${(local * 22).toFixed(2)}px`);
-  stage.style.setProperty('--scale', (0.94 + local * 0.11).toFixed(3));
+  stage.style.setProperty('--travel', `${(progress * 360).toFixed(2)}px`);
+  stage.style.setProperty('--rise', `${(progress * 22).toFixed(2)}px`);
+  stage.style.setProperty('--scale', (0.94 + progress * 0.11).toFixed(3));
   $('#progress-bar').style.width = `${Math.round(progress * 100)}%`;
 }
 
@@ -115,7 +139,9 @@ $('#next-scene').addEventListener('click', () => {
   (next || $('#quiz')).scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
 $('#close-dialog').addEventListener('click', () => dialog.close());
-dialog.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); });
+document.addEventListener('click', (event) => {
+  if (dialog.open && !dialog.contains(event.target) && !event.target.closest('.hotspot')) dialog.close();
+});
 window.addEventListener('scroll', scheduleScroll, { passive: true });
 window.addEventListener('resize', scheduleScroll);
 

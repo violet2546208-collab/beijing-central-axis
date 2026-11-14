@@ -8,3 +8,31 @@
 .sources-section{display:grid;grid-template-columns:1fr 1fr;gap:10vw;padding:120px 8vw;background:#1d2827;min-height:460px}.sources-section h2{font:500 44px/1.4 'Noto Serif SC',serif;letter-spacing:.08em}.source-copy{font-size:13px;color:#c7c7bc;line-height:2}.source-copy ul{list-style:none;padding:0;margin-top:30px}.source-copy li{margin:12px 0}.source-copy a{color:#e4c596;border-bottom:1px solid #e4c59655}.source-copy a:hover{color:#fff}.site-footer{display:flex;align-items:center;justify-content:space-between;padding:27px 5vw;color:#a9ada5;font-size:11px;letter-spacing:.12em;background:#151b1c}.site-footer a:hover{color:#e4c596}
 .info-dialog{width:min(420px,calc(100vw - 40px));border:1px solid #d0a777;background:#f2e8d6;color:#252824;padding:44px 42px 40px;box-shadow:0 35px 100px #0008}.info-dialog::backdrop{background:#08100ed0;backdrop-filter:blur(4px)}.dialog-close{position:absolute;right:20px;top:13px;border:0;background:transparent;color:#4a4840;font-size:28px}.dialog-eyebrow{font-size:11px;letter-spacing:.2em;color:#a36b4e}.info-dialog h2{font:600 38px 'Noto Serif SC',serif;margin:15px 0}.info-dialog p:not(.dialog-eyebrow){font-size:14px;line-height:2;color:#545348}.info-dialog a{display:inline-block;margin-top:20px;padding-top:15px;border-top:1px solid #cabda6;color:#8e583d;font-size:12px;width:100%}
 @media(max-width:1200px){.stage-copy{top:19%;left:5%;width:225px}.stage-copy h2{font-size:42px}.landmark-wrap{width:45vw}.site-header nav{gap:20px}}@media(max-height:760px){.hero h1{font-size:100px}.hero-content{top:52%}.stage-copy{top:15%}.landmark-wrap{bottom:20%;width:min(34vw,460px)}.stage-copy .stage-hint{margin-top:12px}.axis-world{bottom:-60%}}@media(prefers-reduced-motion:reduce){:root{scroll-behavior:auto}.hotspot-pulse{animation:none}.primary-button,.hotspot-label{transition:none}}
+
+/* 场景只改变底色，透视道路和光晕保持连续，避免滚动到章节边界时闪切。 */
+.story-stage,.story-stage[data-theme=gate],.story-stage[data-theme=street],.story-stage[data-theme=palace],.story-stage[data-theme=tower]{background-image:radial-gradient(circle at 50% 32%,#ddd1b81b,transparent 54%),linear-gradient(180deg,#ffffff08,transparent 62%);transition:background-color .85s ease}
+.story-stage[data-theme=gate]{background-color:#263532}
+.story-stage[data-theme=street]{background-color:#38372f}
+.story-stage[data-theme=palace]{background-color:#412e2d}
+.story-stage[data-theme=tower]{background-color:#263a38}
+.landmark-art{position:relative;width:100%;aspect-ratio:500/420}
+.art-frame{position:absolute;inset:0;transform-origin:center bottom}
+.art-frame svg{width:100%;display:block}
+.art-enter{animation:art-enter .65s cubic-bezier(.2,.8,.2,1) both}
+.art-exit{animation:art-exit .65s cubic-bezier(.4,0,.7,1) both;pointer-events:none}
+.copy-enter{animation:copy-enter .55s ease-out both}
+.hotspot{animation:hotspot-enter .45s .18s both}
+@keyframes art-enter{from{opacity:0;transform:translateY(40px) scale(.89)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes art-exit{from{opacity:1;transform:translateY(0) scale(1)}to{opacity:0;transform:translateY(-35px) scale(1.08)}}
+@keyframes copy-enter{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes hotspot-enter{from{opacity:0;transform:translate(-50%,-42%)}to{opacity:1;transform:translate(-50%,-50%)}}
+
+/* 介绍卡贴近光点；没有全屏遮罩，场景始终可见。 */
+.info-dialog{position:fixed;z-index:30;margin:0;width:min(340px,calc(100vw - 40px));padding:26px 27px 25px;background:#f7efe2;border:1px solid #d6b98f;box-shadow:0 18px 55px #07100f91;animation:popover-enter .2s ease-out both}
+.info-dialog::backdrop{background:transparent;backdrop-filter:none}
+.info-dialog h2{font-size:28px;margin:11px 0}
+.info-dialog p:not(.dialog-eyebrow){font-size:13px;line-height:1.85;margin:0}
+.info-dialog a{margin-top:13px;padding-top:11px}
+.dialog-close{right:13px;top:6px}
+@keyframes popover-enter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.art-enter,.art-exit,.copy-enter,.hotspot,.info-dialog{animation:none}.story-stage{transition:none}}
