@@ -36,3 +36,19 @@
 .dialog-close{right:13px;top:6px}
 @keyframes popover-enter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @media(prefers-reduced-motion:reduce){.art-enter,.art-exit,.copy-enter,.hotspot,.info-dialog{animation:none}.story-stage{transition:none}}
+
+/* 收简场景：一站一栋主建筑，轴线留白，点位只在操作时显示标签。 */
+.story-stage .horizon,.story-stage .sun-disc,.story-stage .floating-label,.story-stage .landmark-glow{display:none}
+.story-stage{background-image:linear-gradient(180deg,#ffffff08,transparent 56%)!important}
+.axis-road{background:linear-gradient(90deg,#182322 0 37%,#a48660 37.1% 37.25%,#514b40 37.4% 62.6%,#a48660 62.75% 62.9%,#182322 63%);box-shadow:none}
+.road-ticks{left:37.5%;right:37.5%;opacity:.35}
+.road-center{opacity:.72}
+.landmark-wrap{bottom:25%;filter:drop-shadow(0 18px 30px #0b16179c)}
+.art-enter{animation:art-enter-clean .48s ease-out both}
+@keyframes art-enter-clean{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+.hotspot{width:38px;height:38px;padding:0;display:grid;place-items:center;animation:none}
+.hotspot-dot{width:13px;height:13px;border:2px solid #fff6e5;background:#b7774d;box-shadow:0 0 0 7px #17201f99,0 0 0 8px #e2ba8380;transition:transform .2s,box-shadow .2s}
+.hotspot:hover .hotspot-dot,.hotspot:focus-visible .hotspot-dot{transform:scale(1.15);box-shadow:0 0 0 8px #17201fbb,0 0 0 9px #e2ba83}
+.hotspot-label{position:absolute;left:37px;top:1px;opacity:0;pointer-events:none;transform:translateX(-5px);transition:opacity .18s,transform .18s;background:#17201ff2}
+.hotspot:hover .hotspot-label,.hotspot:focus-visible .hotspot-label{opacity:1;transform:translateX(0)}
+@media(prefers-reduced-motion:reduce){.art-enter{animation:none}.hotspot-dot,.hotspot-label{transition:none}}

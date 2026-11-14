@@ -68,15 +68,10 @@ function showScene(index) {
   $('#scene-summary').textContent = scene.summary;
   $('#scene-position').textContent = scene.position;
   const art = $('#landmark-art');
-  art.querySelectorAll('.art-frame').forEach((frame) => {
-    frame.classList.remove('art-enter');
-    frame.classList.add('art-exit');
-    window.setTimeout(() => frame.remove(), 650);
-  });
   const frame = document.createElement('div');
   frame.className = 'art-frame art-enter';
   frame.innerHTML = landmarkSvg(scene.art);
-  art.append(frame);
+  art.replaceChildren(frame);
   const copy = $('.stage-copy');
   copy.classList.remove('copy-enter');
   void copy.offsetWidth;
@@ -89,7 +84,7 @@ function showScene(index) {
     button.type = 'button';
     button.style.left = `${spot.x}%`;
     button.style.top = `${spot.y}%`;
-    button.innerHTML = '<span class="hotspot-pulse" aria-hidden="true"></span><span class="hotspot-dot" aria-hidden="true"></span><span class="hotspot-label"></span>';
+    button.innerHTML = '<span class="hotspot-dot" aria-hidden="true"></span><span class="hotspot-label"></span>';
     button.querySelector('.hotspot-label').textContent = spot.label;
     button.setAttribute('aria-label', `了解${spot.title}`);
     button.addEventListener('click', () => openInfo(spot, button));
