@@ -36,7 +36,7 @@ for (const [stopIndex, stop] of stops.entries()) {
   for (const item of stop.items) {
     const button = document.createElement('button');
     button.type = 'button';
-    button.className = 'building';
+    button.className = stop.items.length > 1 ? 'building building--pair' : 'building';
     button.setAttribute('aria-label', `了解${item.name}`);
     button.innerHTML = '<img alt="" decoding="async"><span></span>';
     button.querySelector('img').src = assetPath(item, mode);
@@ -84,24 +84,24 @@ function update() {
   $('#progress-fill').style.width = `${(progress * 100).toFixed(2)}%`;
   stage.style.setProperty('--road-shift', `${Math.round(progress * 1200)}px`);
   stage.style.setProperty('--plant-shift', `${Math.round(progress * 60)}px`);
-  stage.style.setProperty('--roll-turn', `${Math.round(progress * 900)}px`);
 
   for (const { button, item, stopIndex } of nodes) {
     const distance = stopIndex - currentPosition;
-    const visible = distance > -0.65 && distance < 1.75;
+    const visible = distance > -0.55 && distance < 1.3;
     button.hidden = !visible;
     if (!visible) continue;
     const depth = Math.max(0, distance);
     const scale = 1 / (1 + depth * 0.5);
-    const x = item.x * scale * 1.25;
-    const y = 74 - distance * 22;
-    const opacity = Math.min(1, Math.max(0, (distance + 0.65) * 2.5), Math.max(0, (1.75 - distance) * 2.4));
+    const pairOffset = item.x === 0 ? 0 : Math.sign(item.x) * Math.max(Math.abs(item.x) * 1.25, button.offsetWidth / 2 + 36);
+    const x = pairOffset * scale;
+    const y = 77 - distance * 38;
+    const opacity = Math.min(1, Math.max(0, (distance + 0.55) * 3), Math.max(0, (1.3 - distance) * 3));
     button.style.left = `calc(50% + ${x.toFixed(1)}px)`;
     button.style.top = `${y.toFixed(2)}%`;
     button.style.transform = `translate(-50%, -100%) scale(${scale.toFixed(3)})`;
     button.style.opacity = opacity.toFixed(3);
     button.style.zIndex = String(100 - Math.round(distance * 10));
-    button.style.pointerEvents = distance > -0.2 && distance < 1.4 ? 'auto' : 'none';
+    button.style.pointerEvents = distance > -0.2 && distance < 1.15 ? 'auto' : 'none';
   }
 }
 

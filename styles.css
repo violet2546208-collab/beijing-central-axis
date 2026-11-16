@@ -12,18 +12,16 @@
 @media(max-width:1200px){.site-header nav{gap:20px}.stage-caption{left:4vw;width:225px}.axis-plant{width:170px;opacity:.6}.landing h1{font-size:105px}}@media(max-height:760px){.landing{min-height:650px}.axis-stage{min-height:620px}.stage-caption{top:21%}.axis-plant{bottom:6%}.building{width:clamp(150px,20vw,280px)}}@media(prefers-reduced-motion:reduce){:root{scroll-behavior:auto}.caption-in{animation:none}.landing-building,.site-header,.landing,.axis-stage{transition:none}}
 .ai-mark{font-size:10px;opacity:.68;white-space:nowrap}
 
-/* 卷轴前缘以分层高光、圆筒和端盖呈现卷起的厚度。 */
-.scroll-roll{position:absolute;z-index:4;left:50%;bottom:5%;width:min(94vw,1300px);height:78px;transform:translateX(-50%);pointer-events:none;filter:drop-shadow(0 18px 15px #246c7c55)}
-.roll-lip{position:absolute;left:2.5%;right:2.5%;top:0;height:34px;border-radius:50% 50% 8px 8px/90% 90% 8px 8px;background:linear-gradient(180deg,#fff7d7 0%,#d1f5dc 45%,#7cced2 100%);border-top:3px solid #fff7df;box-shadow:inset 0 -6px 12px #439ba371}
-.roll-cylinder{position:absolute;left:0;right:0;top:18px;height:53px;border-radius:27px;background:linear-gradient(180deg,#e4fff5 0%,#a0e8d9 16%,#4c9eaf 47%,#23697e 80%,#174d64 100%);border:1px solid #66bdc3;box-shadow:inset 0 5px 10px #f7fff4cc,inset 0 -9px 13px #134c6599}
-.roll-cylinder:after{content:"";position:absolute;inset:3px 24px;border-radius:inherit;background:repeating-linear-gradient(180deg,transparent 0 10px,#effff436 11px 12px,transparent 13px 23px);background-position:center var(--roll-turn,0px);opacity:.45}
-.roll-cap{position:absolute;top:13px;width:57px;height:62px;border-radius:50%;background:radial-gradient(circle at 42% 36%,#fff7da 0 15%,#bcecd9 17% 37%,#4e9cab 50%,#1d6174 74%);border:2px solid #81c5c9;box-shadow:inset -7px -5px 7px #17475955}
-.roll-cap-left{left:-20px}.roll-cap-right{right:-20px;transform:scaleX(-1)}
+/* 卷面在画面远端上翘，与向前铺开的长轴连成一体。 */
+.scroll-curl{position:absolute;z-index:1;left:50%;top:6%;width:min(76vw,1020px);height:27%;transform:translateX(-50%) perspective(900px) rotateX(-10deg);transform-origin:center bottom;pointer-events:none;overflow:hidden;border-radius:43% 43% 4% 4%/58% 58% 2% 2%;background:linear-gradient(180deg,#f8f4dc 0%,#ccebe0 22%,#8acbd0 62%,#387d9f 100%);box-shadow:inset 0 12px 23px #fffbeab8,inset 0 -28px 40px #174a6880,0 -9px 25px #1f718439}
+.scroll-curl::before{content:"";position:absolute;inset:0;background-image:url('./assets/scroll-ground-day-vertical.webp');background-size:100% auto;background-position:center top;opacity:.4;filter:blur(2px)}
+.scroll-curl::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#145a7a4d,transparent 17% 83%,#145a7a4d),linear-gradient(180deg,#fff9dbcf,transparent 22%,#15496e86 100%);border-radius:inherit}
 .building{width:clamp(205px,28vw,410px)}
+.building--pair{width:clamp(190px,24vw,350px)}
 .axis-plant-grass-left{left:5%;bottom:12%;width:min(19vw,270px);opacity:.85}
 .axis-plant-tree-right{right:5%;bottom:23%;width:min(12vw,160px);opacity:.78}
 .axis-plant-fan-right{right:14%;bottom:12%;width:min(12vw,160px);opacity:.68;transform:translateY(var(--plant-shift,0px)) scaleX(-1)}
-:root[data-mode=night] .roll-lip{background:linear-gradient(180deg,#a4d9df,#408fa9 52%,#1e557b);border-color:#acdbe0;box-shadow:inset 0 -6px 12px #103f6a}
-:root[data-mode=night] .roll-cylinder{background:linear-gradient(180deg,#8dd6dd,#427b9d 24%,#193e6e 65%,#101f4d);border-color:#508faf;box-shadow:inset 0 5px 10px #c5f0e0a8,inset 0 -9px 13px #08123e}
-:root[data-mode=night] .roll-cap{background:radial-gradient(circle at 42% 36%,#f2d7ad 0 15%,#68b7c6 17% 37%,#316a91 50%,#122c63 74%);border-color:#5c9db1}
-@media(max-height:760px){.building{width:clamp(190px,26vw,360px)}.scroll-roll{bottom:6%;height:65px}.roll-cylinder{height:43px}.roll-cap{height:52px;width:49px}}
+:root[data-mode=night] .scroll-curl{background:linear-gradient(180deg,#1e4765 0%,#245974 36%,#164467 70%,#102f57 100%);box-shadow:inset 0 12px 23px #75bed34d,inset 0 -28px 40px #07183f99,0 -9px 25px #010e2866}
+:root[data-mode=night] .scroll-curl::before{background-image:url('./assets/scroll-ground-night-vertical.webp');opacity:.38}
+:root[data-mode=night] .scroll-curl::after{background:linear-gradient(90deg,#071b4470,transparent 17% 83%,#071b4470),linear-gradient(180deg,#73c2cf70,transparent 24%,#0a204c92 100%)}
+@media(max-height:760px){.building{width:clamp(190px,26vw,360px)}.building--pair{width:clamp(180px,23vw,320px)}}

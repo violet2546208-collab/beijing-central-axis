@@ -12,7 +12,7 @@ B 赛道古都美学方向的 PC 网页演示。当前版本重点完成长轴�
 - `assets/axis-overview-*.webp`：美工组长轴总览图的网页缩略版。
 - `assets/shangshou-ruibo.ttf`：美工组提供的标题字体。
 - `assets/ai-foliage.webp`、`assets/ai-grass.webp`、`assets/ai-tree.webp`：AI 辅助生成的扇形灌木、矮草和树形装饰。
-- `assets/scroll-ground-*.webp`：AI 辅助生成的昼夜卷轴底纹；卷起的前缘、圆筒和端盖由 CSS 绘制。生成过程见 [素材来源记录](ASSET_PROVENANCE.md)。
+- `assets/scroll-ground-*.webp`：AI 辅助生成的昼夜卷轴底纹；远端上翘的卷面由 CSS 绘制。生成过程见 [素材来源记录](ASSET_PROVENANCE.md)。
 - `references/`：美工组提供的原始压缩包与内容资料；新增事实文案时先核对权威来源。
 
 美工组更新建筑原画后，可运行 `scripts/prepare_assets.py` 重新输出 WebP：
