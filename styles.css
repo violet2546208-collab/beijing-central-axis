@@ -12,12 +12,16 @@
 @media(max-width:1200px){.site-header nav{gap:20px}.stage-caption{left:4vw;width:225px}.axis-plant{width:170px;opacity:.6}.landing h1{font-size:105px}}@media(max-height:760px){.landing{min-height:650px}.axis-stage{min-height:620px}.stage-caption{top:21%}.axis-plant{bottom:6%}.building{width:clamp(150px,20vw,280px)}}@media(prefers-reduced-motion:reduce){:root{scroll-behavior:auto}.caption-in{animation:none}.landing-building,.site-header,.landing,.axis-stage{transition:none}}
 .ai-mark{font-size:10px;opacity:.68;white-space:nowrap}
 
-/* 美工参考图的黑色长轴与弧形侧边；两种模式共用纯黑中轴。 */
+/* 参考图仅用于弧形透视轮廓，卷面继续使用原有的昼夜底纹。 */
 .axis-stage{background:radial-gradient(ellipse 75% 60% at 100% 58%,#f3987b 0%,transparent 100%) right/50% 100% no-repeat,linear-gradient(180deg,#1c1512 0%,#684432 34%,#c57c63 65%,#a6aeb0 100%) right/50% 100% no-repeat,radial-gradient(ellipse 90% 110% at 5% 0%,#cbf9f5 0%,#a7bdb9 43%,#5c88b7 100%) left/50% 100% no-repeat}
 .stage-sky{display:none}
 .scroll-plane{position:absolute;inset:0;z-index:1;width:100%;height:100%;background:none;pointer-events:none}
-.stage-controls,.stage-controls button{color:#f4f4e9}
-.stage-progress{background:#e4ede969}
+.scroll-art{transition:opacity .5s ease}
+.scroll-art-night{opacity:0}
+.scroll-edge{fill:none;stroke:#fff2d0;stroke-width:2.4;opacity:.65}
+.scroll-edge-left{stroke:#c4fff0}
+.stage-controls,.stage-controls button{color:#254f5e}
+.stage-progress{background:#386c7569}
 .stage-caption{top:18%}
 .stage-head{top:80px}
 .stage-head span:last-child{color:#fff6ea}
@@ -28,4 +32,9 @@
 .axis-plant-tree-right{right:5%;bottom:23%;width:min(12vw,160px);opacity:.78}
 .axis-plant-fan-right{right:14%;bottom:12%;width:min(12vw,160px);opacity:.68;transform:translateY(var(--plant-shift,0px)) scaleX(-1)}
 :root[data-mode=night] .axis-stage{background:radial-gradient(ellipse 75% 60% at 100% 58%,#b96d59 0%,transparent 100%) right/50% 100% no-repeat,linear-gradient(180deg,#100e0d 0%,#443229 34%,#855a4b 65%,#697780 100%) right/50% 100% no-repeat,radial-gradient(ellipse 90% 110% at 5% 0%,#76adb9 0%,#59798e 45%,#365984 100%) left/50% 100% no-repeat}
+:root[data-mode=night] .scroll-art-night{opacity:1}
+:root[data-mode=night] .scroll-edge-left{stroke:#4eabc2}
+:root[data-mode=night] .scroll-edge-right{stroke:#d49fc9}
+:root[data-mode=night] .stage-controls,:root[data-mode=night] .stage-controls button{color:#edf7f2}
+:root[data-mode=night] .stage-progress{background:#a5c5d46b}
 @media(max-height:760px){.building{width:clamp(190px,26vw,360px)}.building--pair{width:clamp(180px,23vw,320px)}.stage-caption{top:15%}}

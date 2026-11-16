@@ -24,20 +24,24 @@
     <section id="axis" class="axis-story" aria-label="北京中轴线互动长卷">
       <div class="axis-stage" id="axis-stage">
         <div class="stage-sky" aria-hidden="true"></div>
-        <svg class="scroll-plane" id="scroll-plane" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M320 0 C320 420 195 805 65 1000 H935 C805 805 680 420 680 0 Z" fill="#000"/></svg>
+        <svg class="scroll-plane" id="scroll-plane" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <defs><clipPath id="scroll-outline"><path d="M320 0 C320 420 195 805 65 1000 H935 C805 805 680 420 680 0 Z"/></clipPath></defs>
+          <g clip-path="url(#scroll-outline)"><image class="scroll-art scroll-art-day" href="assets/scroll-ground-day-vertical.webp" x="-160" y="0" width="1320" height="1000" preserveAspectRatio="none"/><image class="scroll-art scroll-art-night" href="assets/scroll-ground-night-vertical.webp" x="-160" y="0" width="1320" height="1000" preserveAspectRatio="none"/></g>
+          <path class="scroll-edge scroll-edge-left" d="M320 0 C320 420 195 805 65 1000"/><path class="scroll-edge scroll-edge-right" d="M680 0 C680 420 805 805 935 1000"/>
+        </svg>
         <div id="building-field" class="building-field" aria-label="长轴建筑"></div>
         <img class="axis-plant axis-plant-grass-left" src="assets/ai-grass.webp" alt="" aria-hidden="true">
         <img class="axis-plant axis-plant-tree-right" src="assets/ai-tree.webp" alt="" aria-hidden="true">
         <img class="axis-plant axis-plant-fan-right" src="assets/ai-foliage.webp" alt="" aria-hidden="true">
         <div class="stage-head"><span>北京中轴线 / 由南向北</span><span id="stop-count">01 / 10</span></div>
         <div class="stage-caption" aria-live="polite"><p id="stop-category">南端起点</p><h2 id="stop-title">永定门</h2><p id="stop-description"></p><button id="stop-detail" type="button">了解此处 <span aria-hidden="true">↗</span></button></div>
-        <div class="stage-controls"><div class="stage-progress"><span id="progress-fill"></span></div><span id="mode-status">白昼</span><span class="ai-mark">AI生成植物</span><button id="next-stop" type="button">继续向北 ↓</button></div>
+        <div class="stage-controls"><div class="stage-progress"><span id="progress-fill"></span></div><span id="mode-status">白昼</span><span class="ai-mark">AI生成卷轴底纹与植物</span><button id="next-stop" type="button">继续向北 ↓</button></div>
         <div class="direction" aria-hidden="true"><span>北</span><i></i><span>南</span></div>
       </div>
       <div class="scroll-track" aria-hidden="true"></div>
     </section>
 
-    <section class="ending" id="about"><p class="kicker">一线串联，万象同城</p><h2>行至北端，<br>再回望整条中轴。</h2><p>本网页使用美工组绘制的建筑与长轴图；装饰植物为 AI 辅助生成的补充素材。画面用于文化体验与交互演示，并非测绘或建筑复原。</p><div class="ending-actions"><button id="ending-overview" type="button">查看长轴总览 ↗</button><a href="#axis">再次探索 ↑</a></div><div class="source-links"><a href="https://whc.unesco.org/zh/list/1714" target="_blank" rel="noopener noreferrer">联合国教科文组织 · 北京中轴线 ↗</a><a href="https://www.beijing.gov.cn/zhengce/dfxfg/202506/t20250610_4110461.html" target="_blank" rel="noopener noreferrer">北京市人民政府 · 保护条例 ↗</a></div></section>
+    <section class="ending" id="about"><p class="kicker">一线串联，万象同城</p><h2>行至北端，<br>再回望整条中轴。</h2><p>本网页使用美工组绘制的建筑与长轴图；卷轴底纹和装饰植物为 AI 辅助生成的补充素材。画面用于文化体验与交互演示，并非测绘或建筑复原。</p><div class="ending-actions"><button id="ending-overview" type="button">查看长轴总览 ↗</button><a href="#axis">再次探索 ↑</a></div><div class="source-links"><a href="https://whc.unesco.org/zh/list/1714" target="_blank" rel="noopener noreferrer">联合国教科文组织 · 北京中轴线 ↗</a><a href="https://www.beijing.gov.cn/zhengce/dfxfg/202506/t20250610_4110461.html" target="_blank" rel="noopener noreferrer">北京市人民政府 · 保护条例 ↗</a></div></section>
   </main>
 
   <footer><span>一线定城 · 北京中轴线</span><span>古都美学 / PC 交互演示</span><a href="#top">回到顶部 ↑</a></footer>

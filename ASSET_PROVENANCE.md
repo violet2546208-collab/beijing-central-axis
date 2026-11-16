@@ -6,7 +6,7 @@
 
 ## AI 辅助素材
 
-生成工具：Codex 内置 imagegen。输入的原画只用于风格参照，网页中保留原画建筑。当前网页使用的植物在画面底部以“AI生成植物”标明；早期生成的底纹已停用。
+生成工具：Codex 内置 imagegen。输入的原画只用于风格参照，网页中保留原画建筑。当前网页使用的卷轴底纹和植物在画面底部标明。
 
 ### 植物 `assets/ai-foliage.webp`
 
@@ -26,7 +26,7 @@
 
 > Edit the supplied scroll-ground image into its NIGHT companion asset for the same interactive Beijing Central Axis website. Preserve EXACTLY the original wide horizontal composition, empty central pathway, long border placement, cloud motif rhythm, dimensions and crisp flat vector-like style. Change only the palette and lighting: midnight indigo and deep teal ground, faint cyan and soft violet edge glow with very restrained warm peach accents. Keep the center quiet and readable behind standing building illustrations. No buildings, people, plants, text, stars, moon, labels, or new objects. This should align visually with the daytime version when users toggle modes.
 
-`scroll-ground-*-vertical.webp` 是对应底纹旋转 90 度的历史版本。当前网页的黑色中轴和两侧渐变由 SVG 与 CSS 绘制，未使用这些底纹。
+`scroll-ground-*-vertical.webp` 是对应底纹旋转 90 度后的网页版本。网页用 SVG 裁出弧形透视轮廓，并按昼夜模式切换底纹。
 
 ### 矮草 `assets/ai-grass.webp`
 
