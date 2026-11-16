@@ -10,7 +10,8 @@ B 赛道古都美学方向的 PC 网页演示。当前版本重点完成长轴�
 
 - `assets/buildings/`：美工组建筑原画导出的透明 WebP，白色背景版对应白昼，黑色背景版对应黑夜。先农坛只有白昼原画，黑夜暂时沿用白昼版。
 - `assets/axis-overview-*.webp`：美工组长轴总览图的网页缩略版。
-- `assets/shangshou-ruibo.ttf`：美工组提供的标题字体。
+- `assets/kangxi-body.ttf`：正文使用的润植家康熙字典美化体。
+- `assets/hld-heading.ttf`：大标题使用的 HLD 齐伋复刻修正版，仅保留当前网页文字所需字形。新增标题字后可运行 `scripts/subset_heading_font.py <原始 HLD 字体路径>` 重新生成；脚本依赖 `fonttools`。
 - `assets/ai-foliage.webp`、`assets/ai-grass.webp`、`assets/ai-tree.webp`：AI 辅助生成的扇形灌木、矮草和树形装饰。
 - 长轴使用 `assets/scroll-ground-*-vertical.webp` 的完整昼夜卷轴图，包括两侧云纹边饰。Canvas 按参考图的弧形透视轮廓铺设图像，SVG 提供加载时的备用画面。生成过程见 [素材来源记录](ASSET_PROVENANCE.md)。
 - `references/`：美工组提供的原始压缩包与内容资料；新增事实文案时先核对权威来源。

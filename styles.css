@@ -1,4 +1,5 @@
-@font-face{font-family:Ruibo;src:url('./assets/shangshou-ruibo.ttf') format('truetype');font-display:swap}
+@font-face{font-family:Kangxi;src:url('./assets/kangxi-body.ttf') format('truetype');font-display:swap}
+@font-face{font-family:HLD;src:url('./assets/hld-heading.ttf') format('truetype');font-display:swap}
 :root{font-family:'Microsoft YaHei','PingFang SC',sans-serif;color:#173c49;background:#f8f6ef;scroll-behavior:smooth;--ink:#173c49;--muted:#577381;--paper:#f8f6ef;--accent:#e67887;--line:#a6cbd2;--glass:#fffdf0ed;--sky:#c9f4f5}
 :root[data-mode=night]{color:#e5f4fa;background:#08172d;--ink:#e5f4fa;--muted:#a9c6d7;--paper:#08172d;--accent:#ffac90;--line:#3e8b9c;--glass:#102b44f2;--sky:#08172d}
 *{box-sizing:border-box}body{margin:0;min-width:1024px;overflow-x:hidden}button,a{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:4px}[hidden]{display:none!important}::selection{background:#ffad9b;color:#102c3b}
@@ -44,3 +45,20 @@
 :root[data-mode=night] .stage-controls,:root[data-mode=night] .stage-controls button{color:#edf7f2}
 :root[data-mode=night] .stage-progress{background:#a5c5d46b}
 @media(max-height:760px){.building{width:clamp(210px,29vw,400px)}.building--pair{width:clamp(205px,26vw,360px)}.stage-caption{top:14%;padding:14px 17px}.stage-caption h2{font-size:35px;margin:7px 0}.stage-caption #stop-description{line-height:1.6;margin-bottom:9px}}
+
+:root{font-family:Kangxi,'Microsoft YaHei',sans-serif}
+.brand,.landing h1,.stage-caption h2,.ending h2,.info-dialog h2,.overview-head h2{font-family:HLD,Kangxi,'Microsoft YaHei',sans-serif}
+.brand small,.direction{font-family:Kangxi,'Microsoft YaHei',sans-serif}
+.brand{font-size:27px}
+.site-header nav{font-size:14px}
+.mode-toggle{font-size:13px}
+.stage-head{font-size:13px}
+.stage-caption #stop-category{font-size:13px}
+.stage-caption #stop-description{font-size:16px;line-height:1.7}
+.stage-caption button{font-size:14px}
+.stage-caption.long-title h2{font-size:clamp(23px,2vw,30px);line-height:1.35}
+.stage-controls{font-size:13px}
+.ai-mark{font-size:12px}
+.landing-desc,.ending>p:not(.kicker){font-size:16px}
+.landing-tip,.source-links{font-size:13px}
+.info-dialog #info-text{font-size:15px}
