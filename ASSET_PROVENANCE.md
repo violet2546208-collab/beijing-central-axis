@@ -2,7 +2,7 @@
 
 ## 美工组原画
 
-建筑与长轴总览来自美工组交付的 `references/architecture-source.zip`。网页用 `scripts/prepare_assets.py` 对 PNG 透明边界裁切、缩小并转换为 WebP，没有对建筑结构作生成式修改。标题字体来自美工组交付的 `assets/shangshou-ruibo.ttf`。
+建筑与长轴总览来自美工组交付的 `references/architecture-source.zip`。网页用 `scripts/prepare_assets.py` 对 PNG 透明边界裁切、缩小并转换为 WebP，没有对建筑结构作生成式修改。正文使用用户提供的润植家康熙字典美化体，大标题使用用户提供的 HLD 齐伋复刻修正版；网页中的 HLD 字体文件仅保留当前文案所需字形。
 
 ## AI 辅助素材
 

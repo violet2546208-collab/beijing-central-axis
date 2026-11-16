@@ -40,8 +40,9 @@ for (const [stopIndex, stop] of stops.entries()) {
     button.setAttribute('aria-label', `了解${item.name}`);
     button.innerHTML = '<img alt="" decoding="async"><span></span>';
     button.querySelector('img').src = assetPath(item, mode);
+    button.querySelector('img').addEventListener('load', queueUpdate);
     button.querySelector('span').textContent = item.name;
-    button.addEventListener('click', () => openInfo(item, button));
+    button.addEventListener('click', () => openInfo(item, button, stopIndex));
     field.append(button);
     nodes.push({ button, item, stopIndex });
   }
@@ -117,6 +118,7 @@ function showStop(index) {
   activeStop = index;
   const stop = stops[index];
   stage.dataset.layout = stop.items.length === 1 ? 'single' : 'pair';
+  $('.stage-caption').classList.toggle('long-title', stop.title.length > 5);
   $('#stop-count').textContent = `${String(index + 1).padStart(2, '0')} / ${String(stops.length).padStart(2, '0')}`;
   $('#stop-category').textContent = stop.category;
   $('#stop-title').textContent = stop.title;
@@ -137,23 +139,37 @@ function update() {
   $('#progress-fill').style.width = `${(progress * 100).toFixed(2)}%`;
   stage.style.setProperty('--plant-shift', `${Math.round(progress * 18)}px`);
 
-  for (const { button, item, stopIndex } of nodes) {
+  const stageHeight = stage.clientHeight;
+  for (const node of nodes) {
+    const distance = node.stopIndex - currentPosition;
+    node.button.hidden = distance <= -0.45 || distance >= 3.35;
+  }
+
+  let previousTop = Infinity;
+  for (let stopIndex = 0; stopIndex < stops.length; stopIndex++) {
     const distance = stopIndex - currentPosition;
-    const visible = distance > -0.55 && distance < 1.3;
-    button.hidden = !visible;
-    if (!visible) continue;
-    const depth = Math.max(0, distance);
-    const scale = 1 / (1 + depth * 0.5);
-    const pairOffset = item.x === 0 ? 0 : Math.sign(item.x) * Math.max(Math.abs(item.x) * 1.25, button.offsetWidth / 2 + 36);
-    const x = pairOffset * scale;
-    const y = 77 - distance * 42;
-    const opacity = Math.min(1, Math.max(0, (distance + 0.55) * 3), Math.max(0, (1.3 - distance) * 3));
-    button.style.left = `calc(50% + ${x.toFixed(1)}px)`;
-    button.style.top = `${y.toFixed(2)}%`;
-    button.style.transform = `translate(-50%, -100%) scale(${scale.toFixed(3)})`;
-    button.style.opacity = opacity.toFixed(3);
-    button.style.zIndex = String(100 - Math.round(distance * 10));
-    button.style.pointerEvents = distance > -0.2 && distance < 1.15 ? 'auto' : 'none';
+    if (distance <= -0.45 || distance >= 3.35) continue;
+    const row = nodes.filter((node) => node.stopIndex === stopIndex);
+    const scale = Math.pow(1 + Math.max(0, distance) * 0.7, -1.05);
+    const sideShift = stageHeight * 0.075 * scale;
+    const rowHeight = Math.max(...row.map(({ button, item }) =>
+      (button.offsetHeight || button.offsetWidth * 1.12) * scale + (item.x > 0 ? sideShift : 0)));
+    const desiredBottom = stageHeight * (0.05 + 0.87 * Math.exp(-0.5 * distance));
+    const bottom = Math.min(desiredBottom, previousTop - Math.max(10, stageHeight * 0.012));
+    previousTop = bottom - rowHeight;
+
+    for (const { button, item } of row) {
+      const pairOffset = item.x === 0 ? 0 : Math.sign(item.x) * button.offsetWidth * 0.46;
+      const x = pairOffset * scale;
+      const itemBottom = bottom - (item.x > 0 ? sideShift : 0);
+      const opacity = Math.min(1, Math.max(0, (distance + 0.45) / 0.45), Math.max(0, (3.35 - distance) / 0.5));
+      button.style.left = `calc(50% + ${x.toFixed(1)}px)`;
+      button.style.top = `${itemBottom.toFixed(1)}px`;
+      button.style.transform = `translate(-50%, -100%) scale(${scale.toFixed(3)})`;
+      button.style.opacity = opacity.toFixed(3);
+      button.style.zIndex = String(100 - Math.round(distance * 10) + (item.x < 0 ? 1 : 0));
+      button.style.pointerEvents = distance > -0.12 && distance < 2.7 && opacity > 0.45 ? 'auto' : 'none';
+    }
   }
 }
 
@@ -163,8 +179,8 @@ function queueUpdate() {
   requestAnimationFrame(update);
 }
 
-function openInfo(item, button) {
-  $('#info-category').textContent = stops[activeStop].category;
+function openInfo(item, button, stopIndex) {
+  $('#info-category').textContent = stops[stopIndex].category;
   $('#info-title').textContent = item.name;
   $('#info-text').textContent = item.text;
   $('#info-source').href = item.source;
@@ -186,7 +202,7 @@ $('#overview-close').addEventListener('click', () => overview.close());
 $('#info-close').addEventListener('click', () => info.close());
 $('#stop-detail').addEventListener('click', () => {
   const current = nodes.find((node) => node.stopIndex === activeStop);
-  if (current) openInfo(current.item, current.button);
+  if (current) openInfo(current.item, current.button, current.stopIndex);
 });
 $('#next-stop').addEventListener('click', () => {
   const next = Math.min(stops.length - 1, activeStop + 1);
