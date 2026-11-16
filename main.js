@@ -1,154 +1,151 @@
-const SOURCE_UNESCO = 'https://whc.unesco.org/zh/list/1714';
-const SOURCE_BEIJING = 'https://www.beijing.gov.cn/zhengce/dfxfg/202506/t20250610_4110461.html';
+const UNESCO = 'https://whc.unesco.org/zh/list/1714';
+const BEIJING = 'https://www.beijing.gov.cn/zhengce/dfxfg/202506/t20250610_4110461.html';
+const $ = (selector) => document.querySelector(selector);
 
-// 美工素材接入点：每个场景的主题、文案、建筑类型和热点集中在这里。
-// 可在场景中添加 background / foreground 图片路径，再替换下方 SVG 示意图。
-const scenes = [
-  {
-    theme: 'gate', number: '第一站 · 南端', title: '永定门', position: '永定门',
-    summary: '从南端进入北京老城。沿着一条贯穿南北的城市脊梁，开始看见古都的尺度与秩序。', art: 'gate',
-    hotspots: [{ title: '永定门', label: '永定门', x: 54, y: 51, eyebrow: '中轴线 · 南端', body: '永定门位于北京中轴线南端。向北延伸的轴线贯穿北京老城，形成整体的空间秩序。', source: SOURCE_BEIJING }]
-  },
-  {
-    theme: 'street', number: '第二站 · 城市之门', title: '正阳门', position: '正阳门',
-    summary: '由城门走向老城中心。脚下的道路把不同建筑和公共空间串联为一个整体。', art: 'gate',
-    hotspots: [{ title: '正阳门', label: '正阳门', x: 53, y: 49, eyebrow: '中轴线 · 城市空间', body: '正阳门是北京中轴线的遗产构成要素之一。中轴线的意义不仅在单座建筑，也在建筑与道路之间的空间联系。', source: SOURCE_UNESCO }]
-  },
-  {
-    theme: 'palace', number: '第三站 · 对称布局', title: '故宫与坛庙', position: '故宫',
-    summary: '以中轴为参照，观察故宫与东西两侧坛庙。建筑的位置本身，就是一段可以读懂的文化叙事。', art: 'palace',
-    hotspots: [
-      { title: '故宫', label: '故宫', x: 53, y: 40, eyebrow: '中轴线 · 皇家宫苑', body: '故宫是北京中轴线的重要遗产构成要素。它与周围建筑共同呈现北京老城的规划格局。', source: SOURCE_UNESCO },
-      { title: '太庙', label: '太庙 · 东', x: 76, y: 58, eyebrow: '中轴线 · 东侧', body: '太庙位于故宫东侧，与西侧的社稷坛形成相对布局，体现传统都城的礼仪秩序。', source: SOURCE_BEIJING },
-      { title: '社稷坛', label: '社稷坛 · 西', x: 30, y: 58, eyebrow: '中轴线 · 西侧', body: '社稷坛位于故宫西侧，与东侧的太庙形成相对布局。', source: SOURCE_BEIJING }
-    ]
-  },
-  {
-    theme: 'tower', number: '第四站 · 北端', title: '钟鼓楼', position: '钟鼓楼',
-    summary: '向北走到这条轴线的另一端。回望来路，城门、道路与建筑共同组成一座城的骨架。', art: 'tower',
-    hotspots: [{ title: '钟鼓楼', label: '钟鼓楼', x: 54, y: 48, eyebrow: '中轴线 · 北端', body: '钟鼓楼位于北京中轴线北端，与南端的永定门共同界定这条贯穿老城的轴线。', source: SOURCE_BEIJING }]
-  }
+// 从南向北的演示顺序。双侧建筑以 x 偏移显示，保持“建筑立在卷轴上”的视觉关系。
+const stops = [
+  { title: '永定门', category: '南端起点', description: '由永定门进入北京老城，沿城市中心向北展开这段旅程。', items: [{ name: '永定门', slug: 'yongdingmen', x: 0, text: '永定门位于北京中轴线南端，是观察整条轴线南北关系的起点。', source: BEIJING }] },
+  { title: '天坛 · 先农坛', category: '礼仪空间', description: '轴线两侧的坛庙，把都城的礼仪秩序铺展到道路之外。', items: [{ name: '先农坛', slug: 'xiannongtan', x: -175, nightFallback: true, text: '先农坛位于中轴线西侧，是北京中轴线遗产构成要素之一。', source: UNESCO }, { name: '天坛', slug: 'tiantan', x: 175, text: '天坛位于中轴线东侧，与西侧的先农坛共同呈现古都的空间布局。', source: UNESCO }] },
+  { title: '正阳门', category: '老城南门', description: '从箭楼到城楼，城门建筑在中轴线上层层展开。', items: [{ name: '正阳门箭楼', slug: 'zhengyangmen-arrow', x: -145, text: '正阳门建筑群位于北京老城中轴线上。', source: UNESCO }, { name: '正阳门城楼', slug: 'zhengyangmen-gate', x: 145, text: '正阳门是北京中轴线的遗产构成要素之一。', source: UNESCO }] },
+  { title: '天安门广场', category: '公共空间', description: '从古都礼仪空间走向现代公共空间，轴线继续连接城市的不同年代。', items: [{ name: '天安门广场', slug: 'tiananmen-square', x: -105, text: '天安门广场及建筑群是北京中轴线的遗产构成要素。', source: UNESCO }, { name: '外金水桥', slug: 'outer-jinshui-bridge', x: 145, text: '外金水桥是北京中轴线的遗产构成要素之一。', source: UNESCO }] },
+  { title: '太庙 · 社稷坛', category: '东西相望', description: '沿轴线看向两侧：太庙在东，社稷坛在西。', items: [{ name: '社稷坛', slug: 'shejitan', x: -175, text: '社稷坛位于故宫西侧，与东侧的太庙形成相对布局。', source: BEIJING }, { name: '太庙', slug: 'taimiao', x: 175, text: '太庙位于故宫东侧，与西侧的社稷坛形成相对布局。', source: BEIJING }] },
+  { title: '端门', category: '宫城序列', description: '门与门之间的距离，构成走向宫城中心的节奏。', items: [{ name: '端门', slug: 'duanmen', x: 0, text: '端门属于北京中轴线上的古代皇家宫苑建筑要素。', source: UNESCO }] },
+  { title: '故宫', category: '宫城中心', description: '轴线穿过故宫，建筑群的层次和秩序在这里格外鲜明。', items: [{ name: '故宫', slug: 'forbidden-city', x: 0, text: '故宫是北京中轴线的重要遗产构成要素，体现了中国传统都城规划与建筑营造。', source: UNESCO }] },
+  { title: '景山', category: '登高望轴', description: '从景山回望，南北延伸的城市骨架更加清晰。', items: [{ name: '景山', slug: 'jingshan', x: 0, text: '景山位于故宫北侧，是北京中轴线的遗产构成要素。', source: UNESCO }] },
+  { title: '万宁桥', category: '水与城', description: '轴线越过古桥，继续通向老城北端。', items: [{ name: '万宁桥', slug: 'wanning-bridge', x: 0, text: '万宁桥是北京中轴线的遗产构成要素之一。', source: UNESCO }] },
+  { title: '钟鼓楼', category: '北端收束', description: '钟楼与鼓楼在北端相望，整条长轴在这里收束。', items: [{ name: '鼓楼', slug: 'drum-tower', x: -145, text: '鼓楼位于北京中轴线北端的钟鼓楼建筑群中。', source: BEIJING }, { name: '钟楼', slug: 'bell-tower', x: 145, text: '钟楼与鼓楼共同构成北京中轴线北端的建筑节点。', source: BEIJING }] }
 ];
 
-const $ = (selector) => document.querySelector(selector);
-const stage = $('#story-stage');
-const story = $('#story');
-const steps = [...document.querySelectorAll('.story-step')];
-const dialog = $('#info-dialog');
-let activeScene = -1;
-let ticking = false;
-let lastStoryProgress = 0;
+const story = $('#axis');
+const stage = $('#axis-stage');
+const field = $('#building-field');
+const info = $('#info-dialog');
+const overview = $('#overview-dialog');
+const nodes = [];
+let mode = 'day';
+let activeStop = -1;
+let currentPosition = 0;
+let frameRequested = false;
 
-// 代码绘制的示意建筑；替换素材时保留外层 landmark-wrap 即可沿用视差效果。
-function landmarkSvg(type) {
-  const roof = '<path d="M112 154 Q250 77 388 154 L410 170 Q250 133 90 170Z" fill="#643c33" stroke="#e0b576" stroke-width="7"/><path d="M145 155 Q250 110 355 155" fill="none" stroke="#b87c55" stroke-width="7"/>';
-  const base = '<path d="M100 338H400V362H100Z" fill="#b5795d"/><path d="M70 362H430V381H70Z" fill="#d7a981"/>';
-  const doors = '<path d="M213 256Q250 215 287 256V338H213Z" fill="#34282b"/><path d="M248 230V338" stroke="#d4a16d" stroke-width="4"/>';
-  const windows = '<g fill="#352c2d"><rect x="135" y="257" width="36" height="58" rx="16"/><rect x="329" y="257" width="36" height="58" rx="16"/></g>';
-  let building = '';
-  if (type === 'palace') {
-    building = `<path d="M102 228H398V338H102Z" fill="#a95f4a"/><path d="M77 213Q250 119 423 213L438 231Q250 188 62 231Z" fill="#74443b" stroke="#e9c58f" stroke-width="8"/><path d="M160 213Q250 168 340 213" fill="none" stroke="#bd8a5e" stroke-width="6"/>${doors}${windows}<path d="M123 240H377" stroke="#e4b078" stroke-width="9"/>${base}`;
-  } else if (type === 'tower') {
-    building = `<path d="M142 221H358V338H142Z" fill="#aa654e"/><path d="M123 205Q250 135 377 205L394 224Q250 190 106 224Z" fill="#65403a" stroke="#e8bd83" stroke-width="7"/><path d="M167 149H333V207H167Z" fill="#bb7356"/><path d="M145 144Q250 88 355 144L368 160Q250 126 132 160Z" fill="#65403a" stroke="#e8bd83" stroke-width="7"/><path d="M215 260Q250 225 285 260V338H215Z" fill="#34282b"/>${base}`;
-  } else {
-    building = `<path d="M125 213H375V338H125Z" fill="#a7604a"/>${roof}<path d="M141 171H359V222H141Z" fill="#bd7658"/><path d="M150 220H350" stroke="#e6b983" stroke-width="8"/>${doors}${windows}${base}`;
-  }
-  return `<svg viewBox="0 0 500 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="建筑示意图"><ellipse cx="250" cy="380" rx="218" ry="18" fill="#172022" opacity=".23"/><path d="M34 380H466" stroke="#e8c18b" stroke-width="3" opacity=".65"/>${building}</svg>`;
+function assetPath(item, selectedMode) {
+  const variant = selectedMode === 'night' && item.nightFallback ? 'day' : selectedMode;
+  return `assets/buildings/${item.slug}-${variant}.webp`;
 }
 
-function showScene(index) {
-  if (index === activeScene) return;
-  activeScene = index;
-  if (dialog.open) dialog.close();
-  const scene = scenes[index];
-  stage.dataset.theme = scene.theme;
-  $('#chapter-count').textContent = `${String(index + 1).padStart(2, '0')} / 04`;
-  $('#scene-number').textContent = scene.number;
-  $('#scene-title').textContent = scene.title;
-  $('#scene-summary').textContent = scene.summary;
-  $('#scene-position').textContent = scene.position;
-  const art = $('#landmark-art');
-  const frame = document.createElement('div');
-  frame.className = 'art-frame art-enter';
-  frame.innerHTML = landmarkSvg(scene.art);
-  art.replaceChildren(frame);
-  const copy = $('.stage-copy');
-  copy.classList.remove('copy-enter');
-  void copy.offsetWidth;
-  copy.classList.add('copy-enter');
-  const layer = $('#hotspots');
-  layer.replaceChildren();
-  for (const spot of scene.hotspots) {
+for (const [stopIndex, stop] of stops.entries()) {
+  for (const item of stop.items) {
     const button = document.createElement('button');
-    button.className = 'hotspot';
     button.type = 'button';
-    button.style.left = `${spot.x}%`;
-    button.style.top = `${spot.y}%`;
-    button.innerHTML = '<span class="hotspot-dot" aria-hidden="true"></span><span class="hotspot-label"></span>';
-    button.querySelector('.hotspot-label').textContent = spot.label;
-    button.setAttribute('aria-label', `了解${spot.title}`);
-    button.addEventListener('click', () => openInfo(spot, button));
-    layer.append(button);
+    button.className = 'building';
+    button.setAttribute('aria-label', `了解${item.name}`);
+    button.innerHTML = '<img alt="" decoding="async"><span></span>';
+    button.querySelector('img').src = assetPath(item, mode);
+    button.querySelector('span').textContent = item.name;
+    button.addEventListener('click', () => openInfo(item, button));
+    field.append(button);
+    nodes.push({ button, item, stopIndex });
   }
 }
 
-function openInfo(spot, button) {
-  $('#dialog-eyebrow').textContent = spot.eyebrow;
-  $('#dialog-title').textContent = spot.title;
-  $('#dialog-body').textContent = spot.body;
-  $('#dialog-source').href = spot.source;
-  if (!dialog.open) dialog.show();
-  const anchor = button.getBoundingClientRect();
-  const gap = 18;
-  const panelWidth = dialog.offsetWidth;
-  const panelHeight = dialog.offsetHeight;
-  const rightSide = anchor.right + gap + panelWidth <= window.innerWidth - 20;
-  const left = rightSide ? anchor.right + gap : anchor.left - gap - panelWidth;
-  dialog.style.left = `${Math.max(20, Math.min(left, window.innerWidth - panelWidth - 20))}px`;
-  dialog.style.top = `${Math.max(20, Math.min(anchor.top - 32, window.innerHeight - panelHeight - 20))}px`;
+function setMode(nextMode) {
+  mode = nextMode;
+  document.documentElement.dataset.mode = mode;
+  $('#mode-label').textContent = mode === 'day' ? '切换黑夜' : '切换白昼';
+  $('#mode-status').textContent = mode === 'day' ? '白昼' : '黑夜';
+  $('#mode-toggle').setAttribute('aria-pressed', String(mode === 'night'));
+  $('#overview-image').src = `assets/axis-overview-${mode}.webp`;
+  document.querySelector('.landing-building-front').src = assetPath({ slug: 'yongdingmen' }, mode);
+  document.querySelector('.landing-building-back').src = assetPath({ slug: 'bell-tower' }, mode);
+  for (const { button, item } of nodes) button.querySelector('img').src = assetPath(item, mode);
+  try { localStorage.setItem('axis-mode', mode); } catch { /* file previews can disable storage */ }
 }
 
-function updateScroll() {
-  ticking = false;
+function showStop(index) {
+  if (index === activeStop) return;
+  activeStop = index;
+  const stop = stops[index];
+  $('#stop-count').textContent = `${String(index + 1).padStart(2, '0')} / ${String(stops.length).padStart(2, '0')}`;
+  $('#stop-category').textContent = stop.category;
+  $('#stop-title').textContent = stop.title;
+  $('#stop-description').textContent = stop.description;
+  $('.stage-caption').classList.remove('caption-in');
+  void $('.stage-caption').offsetWidth;
+  $('.stage-caption').classList.add('caption-in');
+  if (info.open) info.close();
+}
+
+function update() {
+  frameRequested = false;
   const rect = story.getBoundingClientRect();
-  const scrollable = Math.max(1, story.offsetHeight - window.innerHeight);
-  const progress = Math.max(0, Math.min(0.9999, -rect.top / scrollable));
-  const index = Math.min(scenes.length - 1, Math.floor(progress * scenes.length));
-  if (dialog.open && Math.abs(progress - lastStoryProgress) > 0.002) dialog.close();
-  lastStoryProgress = progress;
-  showScene(index);
-  stage.style.setProperty('--travel', `${(progress * 360).toFixed(2)}px`);
-  stage.style.setProperty('--rise', `${(progress * 22).toFixed(2)}px`);
-  stage.style.setProperty('--scale', (0.94 + progress * 0.11).toFixed(3));
-  $('#progress-bar').style.width = `${Math.round(progress * 100)}%`;
+  const scrollable = Math.max(1, story.offsetHeight - innerHeight);
+  const progress = Math.max(0, Math.min(1, -rect.top / scrollable));
+  currentPosition = progress * (stops.length - 1);
+  showStop(Math.round(currentPosition));
+  $('#progress-fill').style.width = `${(progress * 100).toFixed(2)}%`;
+  stage.style.setProperty('--road-shift', `${Math.round(progress * 1200)}px`);
+  stage.style.setProperty('--plant-shift', `${Math.round(progress * 60)}px`);
+
+  for (const { button, item, stopIndex } of nodes) {
+    const distance = stopIndex - currentPosition;
+    const visible = distance > -0.65 && distance < 2.25;
+    button.hidden = !visible;
+    if (!visible) continue;
+    const depth = Math.max(0, distance);
+    const scale = 1 / (1 + depth * 0.31);
+    const x = item.x * scale;
+    const y = 74 - distance * 21;
+    const opacity = Math.min(1, Math.max(0, (distance + 0.65) * 2.5), Math.max(0, (2.25 - distance) * 2.4));
+    button.style.left = `calc(50% + ${x.toFixed(1)}px)`;
+    button.style.top = `${y.toFixed(2)}%`;
+    button.style.transform = `translate(-50%, -100%) scale(${scale.toFixed(3)})`;
+    button.style.opacity = opacity.toFixed(3);
+    button.style.zIndex = String(100 - Math.round(distance * 10));
+    button.style.pointerEvents = distance > -0.2 && distance < 1.4 ? 'auto' : 'none';
+  }
 }
 
-function scheduleScroll() {
-  if (ticking) return;
-  ticking = true;
-  requestAnimationFrame(updateScroll);
+function queueUpdate() {
+  if (frameRequested) return;
+  frameRequested = true;
+  requestAnimationFrame(update);
 }
 
-$('#next-scene').addEventListener('click', () => {
-  const next = steps[activeScene + 1];
-  (next || $('#quiz')).scrollIntoView({ behavior: 'smooth', block: 'start' });
+function openInfo(item, button) {
+  $('#info-category').textContent = stops[activeStop].category;
+  $('#info-title').textContent = item.name;
+  $('#info-text').textContent = item.text;
+  $('#info-source').href = item.source;
+  if (!info.open) info.show();
+  const rect = button.getBoundingClientRect();
+  const width = info.offsetWidth;
+  const height = info.offsetHeight;
+  const right = rect.right + 18;
+  const left = right + width < innerWidth - 24 ? right : rect.left - width - 18;
+  info.style.left = `${Math.max(24, Math.min(left, innerWidth - width - 24))}px`;
+  info.style.top = `${Math.max(80, Math.min(rect.top - 30, innerHeight - height - 24))}px`;
+}
+
+function openOverview() { overview.showModal(); }
+$('#mode-toggle').addEventListener('click', () => setMode(mode === 'day' ? 'night' : 'day'));
+$('#overview-open').addEventListener('click', openOverview);
+$('#ending-overview').addEventListener('click', openOverview);
+$('#overview-close').addEventListener('click', () => overview.close());
+$('#info-close').addEventListener('click', () => info.close());
+$('#stop-detail').addEventListener('click', () => {
+  const current = nodes.find((node) => node.stopIndex === activeStop);
+  if (current) openInfo(current.item, current.button);
 });
-$('#close-dialog').addEventListener('click', () => dialog.close());
+$('#next-stop').addEventListener('click', () => {
+  const next = Math.min(stops.length - 1, activeStop + 1);
+  const scrollable = story.offsetHeight - innerHeight;
+  if (next === activeStop) $('#about').scrollIntoView({ behavior: 'smooth' });
+  else scrollTo({ top: story.offsetTop + (next / (stops.length - 1)) * scrollable, behavior: 'smooth' });
+});
 document.addEventListener('click', (event) => {
-  if (dialog.open && !dialog.contains(event.target) && !event.target.closest('.hotspot')) dialog.close();
+  if (info.open && !info.contains(event.target) && !event.target.closest('.building') && event.target !== $('#stop-detail')) info.close();
 });
-window.addEventListener('scroll', scheduleScroll, { passive: true });
-window.addEventListener('resize', scheduleScroll);
-
-document.querySelectorAll('.quiz-options button').forEach((button) => {
-  button.addEventListener('click', () => {
-    document.querySelectorAll('.quiz-options button').forEach((item) => item.classList.remove('selected', 'correct', 'incorrect'));
-    const correct = button.dataset.answer === 'correct';
-    button.classList.add('selected', correct ? 'correct' : 'incorrect');
-    $('#quiz-result').textContent = correct
-      ? '答对了。太庙在东，社稷坛在西；两处与中轴上的宫城共同呈现传统都城的布局秩序。'
-      : '再看一眼故宫两侧：太庙在东侧，社稷坛在西侧。你可以重新选择。';
-  });
-});
-
-updateScroll();
+window.addEventListener('scroll', () => { if (info.open) info.close(); queueUpdate(); }, { passive: true });
+window.addEventListener('resize', queueUpdate);
+try { if (localStorage.getItem('axis-mode') === 'night') mode = 'night'; } catch { /* local preview */ }
+setMode(mode);
+update();
