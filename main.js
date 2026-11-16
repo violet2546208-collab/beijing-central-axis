@@ -84,17 +84,18 @@ function update() {
   $('#progress-fill').style.width = `${(progress * 100).toFixed(2)}%`;
   stage.style.setProperty('--road-shift', `${Math.round(progress * 1200)}px`);
   stage.style.setProperty('--plant-shift', `${Math.round(progress * 60)}px`);
+  stage.style.setProperty('--roll-turn', `${Math.round(progress * 900)}px`);
 
   for (const { button, item, stopIndex } of nodes) {
     const distance = stopIndex - currentPosition;
-    const visible = distance > -0.65 && distance < 2.25;
+    const visible = distance > -0.65 && distance < 1.75;
     button.hidden = !visible;
     if (!visible) continue;
     const depth = Math.max(0, distance);
-    const scale = 1 / (1 + depth * 0.31);
-    const x = item.x * scale;
-    const y = 74 - distance * 21;
-    const opacity = Math.min(1, Math.max(0, (distance + 0.65) * 2.5), Math.max(0, (2.25 - distance) * 2.4));
+    const scale = 1 / (1 + depth * 0.5);
+    const x = item.x * scale * 1.25;
+    const y = 74 - distance * 22;
+    const opacity = Math.min(1, Math.max(0, (distance + 0.65) * 2.5), Math.max(0, (1.75 - distance) * 2.4));
     button.style.left = `calc(50% + ${x.toFixed(1)}px)`;
     button.style.top = `${y.toFixed(2)}%`;
     button.style.transform = `translate(-50%, -100%) scale(${scale.toFixed(3)})`;

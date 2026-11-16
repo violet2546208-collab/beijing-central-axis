@@ -27,3 +27,15 @@
 > Edit the supplied scroll-ground image into its NIGHT companion asset for the same interactive Beijing Central Axis website. Preserve EXACTLY the original wide horizontal composition, empty central pathway, long border placement, cloud motif rhythm, dimensions and crisp flat vector-like style. Change only the palette and lighting: midnight indigo and deep teal ground, faint cyan and soft violet edge glow with very restrained warm peach accents. Keep the center quiet and readable behind standing building illustrations. No buildings, people, plants, text, stars, moon, labels, or new objects. This should align visually with the daytime version when users toggle modes.
 
 `scroll-ground-*-vertical.webp` 是对应底纹旋转 90 度后用于网页透视铺设的版本。
+
+### 矮草 `assets/ai-grass.webp`
+
+参照：美工组示意图及先前生成的扇形植物。提示词：
+
+> Create ONE compact low grass cluster as a genuinely transparent-background PNG cutout for the Beijing Central Axis interactive webpage. Match the supplied reference's crisp geometric flat illustration and luminous aqua, teal, mint, coral and soft yellow gradients. Shape: a low uneven row of narrow upright grass blades and a few fan-shaped small leaves, wider than tall, visibly botanical rather than a decorative fan. Keep a clean silhouette and precise edges. No building, pot, soil, ground plane, words, drop shadow, photo texture, glowing fringe or fuzzy halo. The reference is style only.
+
+### 树形植物 `assets/ai-tree.webp`
+
+参照：美工组示意图及先前生成的扇形植物。提示词：
+
+> Create ONE taller ornamental tree cutout for the Beijing Central Axis interactive webpage, genuinely transparent background. Match the supplied reference's crisp flat geometric illustration, clean cut-paper edges and luminous aqua, teal, mint, sky blue, coral pink and soft yellow gradients. Silhouette: slender dark-teal trunk with several layered rounded and fan-like foliage canopies, clearly taller than wide; stylized Chinese garden tree, but no architectural elements. Keep foliage in separate readable clusters with quiet internal detail, suitable beside colorful building illustrations. No building, pot, soil, ground plane, words, drop shadow, realistic texture, glow fringe or fuzzy halo. The reference is style only.

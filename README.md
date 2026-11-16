@@ -11,7 +11,8 @@ B 赛道古都美学方向的 PC 网页演示。当前版本重点完成长轴�
 - `assets/buildings/`：美工组建筑原画导出的透明 WebP，白色背景版对应白昼，黑色背景版对应黑夜。先农坛只有白昼原画，黑夜暂时沿用白昼版。
 - `assets/axis-overview-*.webp`：美工组长轴总览图的网页缩略版。
 - `assets/shangshou-ruibo.ttf`：美工组提供的标题字体。
-- `assets/ai-foliage.webp`、`assets/scroll-ground-*.webp`：AI 辅助生成的植物和卷轴底纹，生成过程见 [素材来源记录](ASSET_PROVENANCE.md)。
+- `assets/ai-foliage.webp`、`assets/ai-grass.webp`、`assets/ai-tree.webp`：AI 辅助生成的扇形灌木、矮草和树形装饰。
+- `assets/scroll-ground-*.webp`：AI 辅助生成的昼夜卷轴底纹；卷起的前缘、圆筒和端盖由 CSS 绘制。生成过程见 [素材来源记录](ASSET_PROVENANCE.md)。
 - `references/`：美工组提供的原始压缩包与内容资料；新增事实文案时先核对权威来源。
 
 美工组更新建筑原画后，可运行 `scripts/prepare_assets.py` 重新输出 WebP：
