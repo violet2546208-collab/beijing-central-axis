@@ -116,6 +116,7 @@ function showStop(index) {
   if (index === activeStop) return;
   activeStop = index;
   const stop = stops[index];
+  stage.dataset.layout = stop.items.length === 1 ? 'single' : 'pair';
   $('#stop-count').textContent = `${String(index + 1).padStart(2, '0')} / ${String(stops.length).padStart(2, '0')}`;
   $('#stop-category').textContent = stop.category;
   $('#stop-title').textContent = stop.title;
@@ -134,7 +135,7 @@ function update() {
   currentPosition = progress * (stops.length - 1);
   showStop(Math.round(currentPosition));
   $('#progress-fill').style.width = `${(progress * 100).toFixed(2)}%`;
-  stage.style.setProperty('--plant-shift', `${Math.round(progress * 60)}px`);
+  stage.style.setProperty('--plant-shift', `${Math.round(progress * 18)}px`);
 
   for (const { button, item, stopIndex } of nodes) {
     const distance = stopIndex - currentPosition;
@@ -145,7 +146,7 @@ function update() {
     const scale = 1 / (1 + depth * 0.5);
     const pairOffset = item.x === 0 ? 0 : Math.sign(item.x) * Math.max(Math.abs(item.x) * 1.25, button.offsetWidth / 2 + 36);
     const x = pairOffset * scale;
-    const y = 77 - distance * 38;
+    const y = 77 - distance * 42;
     const opacity = Math.min(1, Math.max(0, (distance + 0.55) * 3), Math.max(0, (1.3 - distance) * 3));
     button.style.left = `calc(50% + ${x.toFixed(1)}px)`;
     button.style.top = `${y.toFixed(2)}%`;

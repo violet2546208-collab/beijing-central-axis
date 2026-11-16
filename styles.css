@@ -28,15 +28,19 @@
 .stage-head{top:80px}
 .stage-head span:last-child{color:#fff6ea}
 @media(max-width:1200px){.stage-caption{top:15%}}
-.building{width:clamp(205px,28vw,410px)}
-.building--pair{width:clamp(190px,24vw,350px)}
-.axis-plant-grass-left{left:5%;bottom:12%;width:min(19vw,270px);opacity:.85}
-.axis-plant-tree-right{right:5%;bottom:23%;width:min(12vw,160px);opacity:.78}
-.axis-plant-fan-right{right:14%;bottom:12%;width:min(12vw,160px);opacity:.68;transform:translateY(var(--plant-shift,0px)) scaleX(-1)}
+.building{width:clamp(230px,31vw,450px)}
+.building--pair{width:clamp(215px,27vw,390px)}
+.axis-plant-grass-left{z-index:4;left:10%;bottom:22%;width:min(18vw,250px);opacity:.9}
+.axis-plant-tree-right{right:12%;bottom:23%;width:min(13vw,180px);opacity:.78}
+.axis-plant-fan-right{z-index:4;right:13%;bottom:24%;width:min(12vw,160px);opacity:.82;transform:translateY(var(--plant-shift,0px)) scaleX(-1)}
+.axis-plant-grass-left,.axis-plant-tree-right,.axis-plant-fan-right{transition:left .45s ease,right .45s ease}
+.axis-stage[data-layout=single] .axis-plant-grass-left{left:25%}
+.axis-stage[data-layout=single] .axis-plant-tree-right{right:24%}
+.axis-stage[data-layout=single] .axis-plant-fan-right{right:25%}
 :root[data-mode=night] .axis-stage{background:radial-gradient(ellipse 75% 60% at 100% 58%,#b96d59 0%,transparent 100%) right/50% 100% no-repeat,linear-gradient(180deg,#100e0d 0%,#443229 34%,#855a4b 65%,#697780 100%) right/50% 100% no-repeat,radial-gradient(ellipse 90% 110% at 5% 0%,#76adb9 0%,#59798e 45%,#365984 100%) left/50% 100% no-repeat}
 :root[data-mode=night] .scroll-art-night{opacity:1}
 :root[data-mode=night] .scroll-edge-left{stroke:#4eabc2}
 :root[data-mode=night] .scroll-edge-right{stroke:#d49fc9}
 :root[data-mode=night] .stage-controls,:root[data-mode=night] .stage-controls button{color:#edf7f2}
 :root[data-mode=night] .stage-progress{background:#a5c5d46b}
-@media(max-height:760px){.building{width:clamp(190px,26vw,360px)}.building--pair{width:clamp(180px,23vw,320px)}.stage-caption{top:15%}}
+@media(max-height:760px){.building{width:clamp(210px,29vw,400px)}.building--pair{width:clamp(205px,26vw,360px)}.stage-caption{top:14%;padding:14px 17px}.stage-caption h2{font-size:35px;margin:7px 0}.stage-caption #stop-description{line-height:1.6;margin-bottom:9px}}
