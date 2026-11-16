@@ -151,7 +151,7 @@ function update() {
     if (distance <= -0.45 || distance >= 3.35) continue;
     const row = nodes.filter((node) => node.stopIndex === stopIndex);
     const scale = Math.pow(1 + Math.max(0, distance) * 0.7, -1.05);
-    const sideShift = stageHeight * 0.045 * scale;
+    const sideShift = stageHeight * 0.055 * scale;
     const rowHeight = Math.max(...row.map(({ button, item }) =>
       (button.offsetHeight || button.offsetWidth * 1.12) * scale + (item.x > 0 ? sideShift : 0)));
     const desiredBottom = stageHeight * (0.05 + 0.87 * Math.exp(-0.61 * distance));
@@ -159,7 +159,7 @@ function update() {
     previousTop = bottom - rowHeight;
 
     for (const { button, item } of row) {
-      const pairOffset = item.x === 0 ? 0 : Math.sign(item.x) * Math.max(Math.abs(item.x) * 1.25, button.offsetWidth / 2 + 36);
+      const pairOffset = item.x === 0 ? 0 : Math.sign(item.x) * button.offsetWidth * 0.46;
       const x = pairOffset * scale;
       const itemBottom = bottom - (item.x > 0 ? sideShift : 0);
       const opacity = Math.min(1, Math.max(0, (distance + 0.45) / 0.45), Math.max(0, (3.35 - distance) / 0.5));
@@ -167,7 +167,7 @@ function update() {
       button.style.top = `${itemBottom.toFixed(1)}px`;
       button.style.transform = `translate(-50%, -100%) scale(${scale.toFixed(3)})`;
       button.style.opacity = opacity.toFixed(3);
-      button.style.zIndex = String(100 - Math.round(distance * 10));
+      button.style.zIndex = String(100 - Math.round(distance * 10) + (item.x < 0 ? 1 : 0));
       button.style.pointerEvents = distance > -0.12 && distance < 2.7 && opacity > 0.45 ? 'auto' : 'none';
     }
   }

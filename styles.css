@@ -31,6 +31,8 @@
 @media(max-width:1200px){.stage-caption{top:15%}}
 .building{width:clamp(230px,31vw,450px)}
 .building--pair{width:clamp(215px,27vw,390px)}
+.building--pair{filter:drop-shadow(0 14px 11px #173a4940)}
+:root[data-mode=night] .building--pair{filter:drop-shadow(0 14px 11px #020b1a80)}
 .axis-plant-grass-left{z-index:4;left:10%;bottom:22%;width:min(18vw,250px);opacity:.9}
 .axis-plant-tree-right{right:12%;bottom:23%;width:min(13vw,180px);opacity:.78}
 .axis-plant-fan-right{z-index:4;right:13%;bottom:24%;width:min(12vw,160px);opacity:.82;transform:translateY(var(--plant-shift,0px)) scaleX(-1)}
