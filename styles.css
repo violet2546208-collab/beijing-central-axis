@@ -16,6 +16,8 @@
 .axis-stage{background:radial-gradient(ellipse 75% 60% at 100% 58%,#f3987b 0%,transparent 100%) right/50% 100% no-repeat,linear-gradient(180deg,#1c1512 0%,#684432 34%,#c57c63 65%,#a6aeb0 100%) right/50% 100% no-repeat,radial-gradient(ellipse 90% 110% at 5% 0%,#cbf9f5 0%,#a7bdb9 43%,#5c88b7 100%) left/50% 100% no-repeat}
 .stage-sky{display:none}
 .scroll-plane{position:absolute;inset:0;z-index:1;width:100%;height:100%;background:none;pointer-events:none}
+.scroll-canvas{opacity:0;transition:opacity .25s ease}
+.scroll-canvas.is-ready{opacity:1}
 .scroll-art{transition:opacity .5s ease}
 .scroll-art-night{opacity:0}
 .scroll-edge{fill:none;stroke:#fff2d0;stroke-width:2.4;opacity:.65}

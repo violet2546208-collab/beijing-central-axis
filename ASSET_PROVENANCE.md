@@ -26,7 +26,7 @@
 
 > Edit the supplied scroll-ground image into its NIGHT companion asset for the same interactive Beijing Central Axis website. Preserve EXACTLY the original wide horizontal composition, empty central pathway, long border placement, cloud motif rhythm, dimensions and crisp flat vector-like style. Change only the palette and lighting: midnight indigo and deep teal ground, faint cyan and soft violet edge glow with very restrained warm peach accents. Keep the center quiet and readable behind standing building illustrations. No buildings, people, plants, text, stars, moon, labels, or new objects. This should align visually with the daytime version when users toggle modes.
 
-`scroll-ground-*-vertical.webp` 是对应底纹旋转 90 度后的网页版本。网页用 SVG 裁出弧形透视轮廓，并按昼夜模式切换底纹。
+`scroll-ground-*-vertical.webp` 是对应底纹旋转 90 度后的网页版本。网页用 Canvas 将完整图像及云纹边饰铺进弧形透视轮廓，SVG 提供加载时的备用画面，并按昼夜模式切换底纹。
 
 ### 矮草 `assets/ai-grass.webp`
 

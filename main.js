@@ -47,6 +47,57 @@ for (const [stopIndex, stop] of stops.entries()) {
   }
 }
 
+const scrollCanvas = $('#scroll-canvas');
+const scrollContext = scrollCanvas.getContext('2d');
+const groundImages = {};
+
+function scrollEdgeAt(t) {
+  // 反求 SVG 边界曲线的参数，使云纹始终贴着弧形卷边。
+  let low = 0;
+  let high = 1;
+  for (let i = 0; i < 12; i++) {
+    const u = (low + high) / 2;
+    const y = 3 * (1 - u) ** 2 * u * 0.42 + 3 * (1 - u) * u ** 2 * 0.805 + u ** 3;
+    if (y < t) low = u;
+    else high = u;
+  }
+  const u = (low + high) / 2;
+  return 0.32 * (1 - u) ** 3 + 3 * 0.32 * (1 - u) ** 2 * u + 3 * 0.195 * (1 - u) * u ** 2 + 0.065 * u ** 3;
+}
+
+function drawScrollGround() {
+  const source = groundImages[mode];
+  if (!source?.naturalWidth || !scrollContext) {
+    scrollCanvas.classList.remove('is-ready');
+    return;
+  }
+  const width = scrollCanvas.clientWidth;
+  const height = scrollCanvas.clientHeight;
+  if (!width || !height) return;
+  const density = Math.min(devicePixelRatio || 1, 1.5);
+  scrollCanvas.width = Math.round(width * density);
+  scrollCanvas.height = Math.round(height * density);
+  scrollContext.setTransform(density, 0, 0, density, 0, 0);
+  scrollContext.imageSmoothingQuality = 'high';
+
+  for (let y = 0; y < height; y++) {
+    const top = y / height;
+    const bottom = Math.min(1, (y + 1) / height);
+    const left = scrollEdgeAt((top + bottom) / 2) * width;
+    const sourceTop = source.naturalHeight * top ** 0.72;
+    const sourceBottom = source.naturalHeight * bottom ** 0.72;
+    scrollContext.drawImage(source, 0, sourceTop, source.naturalWidth, sourceBottom - sourceTop, left, y, width - 2 * left, 1.2);
+  }
+  scrollCanvas.classList.add('is-ready');
+}
+
+for (const selectedMode of ['day', 'night']) {
+  const image = new Image();
+  image.onload = () => { if (selectedMode === mode) drawScrollGround(); };
+  groundImages[selectedMode] = image;
+  image.src = `assets/scroll-ground-${selectedMode}-vertical.webp`;
+}
+
 function setMode(nextMode) {
   mode = nextMode;
   document.documentElement.dataset.mode = mode;
@@ -57,6 +108,7 @@ function setMode(nextMode) {
   document.querySelector('.landing-building-front').src = assetPath({ slug: 'yongdingmen' }, mode);
   document.querySelector('.landing-building-back').src = assetPath({ slug: 'bell-tower' }, mode);
   for (const { button, item } of nodes) button.querySelector('img').src = assetPath(item, mode);
+  drawScrollGround();
   try { localStorage.setItem('axis-mode', mode); } catch { /* file previews can disable storage */ }
 }
 
@@ -145,7 +197,7 @@ document.addEventListener('click', (event) => {
   if (info.open && !info.contains(event.target) && !event.target.closest('.building') && event.target !== $('#stop-detail')) info.close();
 });
 window.addEventListener('scroll', () => { if (info.open) info.close(); queueUpdate(); }, { passive: true });
-window.addEventListener('resize', queueUpdate);
+window.addEventListener('resize', () => { queueUpdate(); drawScrollGround(); });
 try { if (localStorage.getItem('axis-mode') === 'night') mode = 'night'; } catch { /* local preview */ }
 setMode(mode);
 update();

@@ -26,9 +26,10 @@
         <div class="stage-sky" aria-hidden="true"></div>
         <svg class="scroll-plane" id="scroll-plane" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true" focusable="false">
           <defs><clipPath id="scroll-outline"><path d="M320 0 C320 420 195 805 65 1000 H935 C805 805 680 420 680 0 Z"/></clipPath></defs>
-          <g clip-path="url(#scroll-outline)"><image class="scroll-art scroll-art-day" href="assets/scroll-ground-day-vertical.webp" x="-160" y="0" width="1320" height="1000" preserveAspectRatio="none"/><image class="scroll-art scroll-art-night" href="assets/scroll-ground-night-vertical.webp" x="-160" y="0" width="1320" height="1000" preserveAspectRatio="none"/></g>
+          <g clip-path="url(#scroll-outline)"><image class="scroll-art scroll-art-day" href="assets/scroll-ground-day-vertical.webp" x="0" y="0" width="1000" height="1000" preserveAspectRatio="none"/><image class="scroll-art scroll-art-night" href="assets/scroll-ground-night-vertical.webp" x="0" y="0" width="1000" height="1000" preserveAspectRatio="none"/></g>
           <path class="scroll-edge scroll-edge-left" d="M320 0 C320 420 195 805 65 1000"/><path class="scroll-edge scroll-edge-right" d="M680 0 C680 420 805 805 935 1000"/>
         </svg>
+        <canvas class="scroll-plane scroll-canvas" id="scroll-canvas" aria-hidden="true"></canvas>
         <div id="building-field" class="building-field" aria-label="长轴建筑"></div>
         <img class="axis-plant axis-plant-grass-left" src="assets/ai-grass.webp" alt="" aria-hidden="true">
         <img class="axis-plant axis-plant-tree-right" src="assets/ai-tree.webp" alt="" aria-hidden="true">
