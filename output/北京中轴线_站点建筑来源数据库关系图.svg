@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-labelledby="diagram-title diagram-desc">
+  <title id="diagram-title">北京中轴线站点建筑资料来源数据库关系图</title>
+  <desc id="diagram-desc">SQLite 数据库由站点、建筑点位、资料来源三张表组成。一个站点对应多个建筑点位，每个建筑点位关联一条资料来源。网页读取经校验的导出数据。</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fbfcf8"/>
+      <stop offset="0.56" stop-color="#f4f9f6"/>
+      <stop offset="1" stop-color="#e8f3f4"/>
+    </linearGradient>
+    <linearGradient id="axis" x1="0" x2="1">
+      <stop offset="0" stop-color="#71c5c8"/>
+      <stop offset="0.5" stop-color="#4aa1ba"/>
+      <stop offset="1" stop-color="#ec9b9a"/>
+    </linearGradient>
+    <linearGradient id="tealbar" x1="0" x2="1">
+      <stop offset="0" stop-color="#6dc6c4"/>
+      <stop offset="1" stop-color="#95d5c4"/>
+    </linearGradient>
+    <linearGradient id="bluebar" x1="0" x2="1">
+      <stop offset="0" stop-color="#5caec4"/>
+      <stop offset="1" stop-color="#8bd2da"/>
+    </linearGradient>
+    <linearGradient id="coralbar" x1="0" x2="1">
+      <stop offset="0" stop-color="#e9a19b"/>
+      <stop offset="1" stop-color="#f3c1a8"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-25%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#234b60" flood-opacity="0.09"/>
+    </filter>
+    <marker id="arrow" markerWidth="14" markerHeight="14" refX="11" refY="7" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M1 2 L11 7 L1 12" fill="none" stroke="#4f8f9a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#paper)"/>
+  <path d="M0 0 H18 V1080 H0" fill="url(#axis)"/>
+  <path d="M1770 0 C1850 130 1810 260 1920 370 V0 Z" fill="#c6e8e4" opacity="0.33"/>
+  <path d="M0 880 C110 805 190 810 270 910 L330 1080 H0 Z" fill="#c8e6e6" opacity="0.27"/>
+
+  <g font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif">
+    <text x="100" y="80" fill="#0d7c90" font-size="30" font-weight="700" letter-spacing="5">技术创新  /  文化遗产点位数据库</text>
+    <text x="100" y="157" fill="#173c49" font-size="59" font-weight="700">一条中轴线，串联点位与来源</text>
+    <text x="102" y="212" fill="#5e7881" font-size="27">SQLite 结构化存储 · 网页读取结构校验后的固定内容 · 点击建筑可查看来源</text>
+
+    <g transform="translate(100 243)">
+      <rect width="152" height="48" rx="24" fill="#e1f1ed"/>
+      <circle cx="25" cy="24" r="7" fill="#3fa99b"/>
+      <text x="45" y="32" fill="#206f72" font-size="22" font-weight="700">10 个站点</text>
+      <rect x="169" width="182" height="48" rx="24" fill="#deeff3"/>
+      <circle cx="195" cy="24" r="7" fill="#4c9fba"/>
+      <text x="216" y="32" fill="#286e83" font-size="22" font-weight="700">15 处建筑点位</text>
+      <rect x="368" width="170" height="48" rx="24" fill="#fbece9"/>
+      <circle cx="394" cy="24" r="7" fill="#e59d92"/>
+      <text x="415" y="32" fill="#a66864" font-size="22" font-weight="700">2 类资料来源</text>
+    </g>
+
+    <!-- Stop table -->
+    <g filter="url(#shadow)">
+      <rect x="100" y="322" width="480" height="439" rx="25" fill="#ffffff" stroke="#d9e8e6" stroke-width="2"/>
+      <path d="M125 322 H555 Q580 322 580 347 V337 Q580 322 555 322 Z M100 337 V347 Q100 322 125 322 H555 V330 H100 Z" fill="url(#tealbar)"/>
+    </g>
+    <circle cx="153" cy="383" r="25" fill="#dff3ec"/>
+    <text x="153" y="392" text-anchor="middle" fill="#29958f" font-size="22" font-weight="700">01</text>
+    <text x="197" y="391" fill="#183f4c" font-size="35" font-weight="700">站点</text>
+    <text x="323" y="389" fill="#6a8e95" font-size="21">STOP</text>
+    <line x1="136" x2="544" y1="430" y2="430" stroke="#e3eceb" stroke-width="2"/>
+    <text x="138" y="479" fill="#387f86" font-size="23" font-weight="700">id</text>
+    <text x="302" y="479" fill="#4e6972" font-size="23">站点主键</text>
+    <text x="138" y="538" fill="#387f86" font-size="23" font-weight="700">title</text>
+    <text x="302" y="538" fill="#4e6972" font-size="23">站点名称</text>
+    <text x="138" y="597" fill="#387f86" font-size="23" font-weight="700">category</text>
+    <text x="302" y="597" fill="#4e6972" font-size="23">文化类别</text>
+    <text x="138" y="656" fill="#387f86" font-size="23" font-weight="700">description</text>
+    <text x="302" y="656" fill="#4e6972" font-size="23">路线简介</text>
+    <rect x="136" y="686" width="408" height="47" rx="12" fill="#edf7f2"/>
+    <text x="154" y="717" fill="#337c79" font-size="21">示例：正阳门 · 老城南门</text>
+
+    <!-- Place table -->
+    <g filter="url(#shadow)">
+      <rect x="720" y="322" width="480" height="439" rx="25" fill="#ffffff" stroke="#d8e7eb" stroke-width="2"/>
+      <path d="M745 322 H1175 Q1200 322 1200 347 V337 Q1200 322 1175 322 Z M720 337 V347 Q720 322 745 322 H1175 V330 H720 Z" fill="url(#bluebar)"/>
+    </g>
+    <circle cx="773" cy="383" r="25" fill="#e0f2f5"/>
+    <text x="773" y="392" text-anchor="middle" fill="#2d8aa8" font-size="22" font-weight="700">02</text>
+    <text x="817" y="391" fill="#183f4c" font-size="35" font-weight="700">建筑点位</text>
+    <text x="1024" y="389" fill="#6a8e95" font-size="21">PLACE</text>
+    <line x1="756" x2="1164" y1="430" y2="430" stroke="#e3eceb" stroke-width="2"/>
+    <text x="758" y="479" fill="#34809b" font-size="23" font-weight="700">slug</text>
+    <text x="974" y="479" fill="#4e6972" font-size="23">点位主键</text>
+    <text x="758" y="538" fill="#34809b" font-size="23" font-weight="700">stop_id</text>
+    <text x="974" y="538" fill="#4e6972" font-size="23">关联站点</text>
+    <text x="758" y="597" fill="#34809b" font-size="23" font-weight="700">name</text>
+    <text x="974" y="597" fill="#4e6972" font-size="23">建筑名称</text>
+    <text x="758" y="656" fill="#34809b" font-size="23" font-weight="700">source_id</text>
+    <text x="974" y="656" fill="#4e6972" font-size="23">关联来源</text>
+    <rect x="756" y="686" width="408" height="47" rx="12" fill="#eaf5f7"/>
+    <text x="774" y="717" fill="#317d93" font-size="21">示例：正阳门箭楼 · 正阳门城楼</text>
+
+    <!-- Source table -->
+    <g filter="url(#shadow)">
+      <rect x="1340" y="322" width="480" height="439" rx="25" fill="#ffffff" stroke="#f0e3df" stroke-width="2"/>
+      <path d="M1365 322 H1795 Q1820 322 1820 347 V337 Q1820 322 1795 322 Z M1340 337 V347 Q1340 322 1365 322 H1795 V330 H1340 Z" fill="url(#coralbar)"/>
+    </g>
+    <circle cx="1393" cy="383" r="25" fill="#fbefea"/>
+    <text x="1393" y="392" text-anchor="middle" fill="#c67d77" font-size="22" font-weight="700">03</text>
+    <text x="1437" y="391" fill="#183f4c" font-size="35" font-weight="700">资料来源</text>
+    <text x="1641" y="389" fill="#9e8b88" font-size="21">SOURCE</text>
+    <line x1="1376" x2="1784" y1="430" y2="430" stroke="#efe7e4" stroke-width="2"/>
+    <text x="1378" y="479" fill="#bd7e78" font-size="23" font-weight="700">id</text>
+    <text x="1595" y="479" fill="#4e6972" font-size="23">来源主键</text>
+    <text x="1378" y="538" fill="#bd7e78" font-size="23" font-weight="700">title</text>
+    <text x="1595" y="538" fill="#4e6972" font-size="23">发布机构</text>
+    <text x="1378" y="597" fill="#bd7e78" font-size="23" font-weight="700">url</text>
+    <text x="1595" y="597" fill="#4e6972" font-size="23">原文链接</text>
+    <rect x="1376" y="654" width="408" height="79" rx="12" fill="#fcf2ee"/>
+    <text x="1394" y="685" fill="#a87470" font-size="20">世界遗产中心</text>
+    <text x="1394" y="715" fill="#a87470" font-size="20">北京市人民政府</text>
+
+    <!-- Relationships -->
+    <path d="M596 527 H703" fill="none" stroke="#4f8f9a" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="615" y="470" width="66" height="34" rx="17" fill="#dff1ef"/>
+    <text x="648" y="494" text-anchor="middle" fill="#237f86" font-size="20" font-weight="700">1 : N</text>
+    <text x="650" y="573" text-anchor="middle" fill="#5e7980" font-size="17">一站多点</text>
+    <path d="M1216 527 H1323" fill="none" stroke="#4f8f9a" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="1234" y="470" width="70" height="34" rx="17" fill="#f6e9e6"/>
+    <text x="1269" y="494" text-anchor="middle" fill="#a87370" font-size="20" font-weight="700">N : 1</text>
+    <text x="1270" y="573" text-anchor="middle" fill="#5e7980" font-size="17">点位溯源</text>
+
+    <!-- Web flow -->
+    <rect x="100" y="803" width="1720" height="107" rx="22" fill="#183d4a"/>
+    <text x="136" y="847" fill="#a9dee0" font-size="22" font-weight="700">网页展示链路</text>
+    <text x="136" y="884" fill="#ffffff" font-size="27" font-weight="700">滚动定位站点</text>
+    <text x="520" y="884" fill="#7ec6ca" font-size="31">→</text>
+    <text x="605" y="884" fill="#ffffff" font-size="27" font-weight="700">点击建筑点位</text>
+    <text x="1010" y="884" fill="#7ec6ca" font-size="31">→</text>
+    <text x="1095" y="884" fill="#ffffff" font-size="27" font-weight="700">查看固定文案与来源链接</text>
+
+    <!-- Validation layer -->
+    <rect x="100" y="936" width="1720" height="82" rx="19" fill="#e5f3ef" stroke="#cbe5dd" stroke-width="2"/>
+    <text x="136" y="986" fill="#287b7c" font-size="24" font-weight="700">防 AI 幻觉约束</text>
+    <text x="355" y="986" fill="#305e68" font-size="23">必填字段校验</text>
+    <circle cx="585" cy="977" r="4" fill="#80b9b5"/>
+    <text x="619" y="986" fill="#305e68" font-size="23">官方来源域名白名单</text>
+    <circle cx="950" cy="977" r="4" fill="#80b9b5"/>
+    <text x="984" y="986" fill="#305e68" font-size="23">配图文件校验</text>
+    <circle cx="1209" cy="977" r="4" fill="#80b9b5"/>
+    <text x="1243" y="986" fill="#305e68" font-size="23">运行时不生成史实文案</text>
+  </g>
+</svg>
