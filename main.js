@@ -82,7 +82,6 @@ function update() {
   currentPosition = progress * (stops.length - 1);
   showStop(Math.round(currentPosition));
   $('#progress-fill').style.width = `${(progress * 100).toFixed(2)}%`;
-  stage.style.setProperty('--road-shift', `${Math.round(progress * 1200)}px`);
   stage.style.setProperty('--plant-shift', `${Math.round(progress * 60)}px`);
 
   for (const { button, item, stopIndex } of nodes) {
