@@ -151,10 +151,10 @@ function update() {
     if (distance <= -0.45 || distance >= 3.35) continue;
     const row = nodes.filter((node) => node.stopIndex === stopIndex);
     const scale = Math.pow(1 + Math.max(0, distance) * 0.7, -1.05);
-    const sideShift = stageHeight * 0.055 * scale;
+    const sideShift = stageHeight * 0.075 * scale;
     const rowHeight = Math.max(...row.map(({ button, item }) =>
       (button.offsetHeight || button.offsetWidth * 1.12) * scale + (item.x > 0 ? sideShift : 0)));
-    const desiredBottom = stageHeight * (0.05 + 0.87 * Math.exp(-0.61 * distance));
+    const desiredBottom = stageHeight * (0.05 + 0.87 * Math.exp(-0.5 * distance));
     const bottom = Math.min(desiredBottom, previousTop - Math.max(10, stageHeight * 0.012));
     previousTop = bottom - rowHeight;
 
